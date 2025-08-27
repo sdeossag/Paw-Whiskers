@@ -1,0 +1,69 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero -->
+<!-- Hero -->
+<section class="hero d-flex align-items-center" style="min-height: 500px; background: linear-gradient(135deg, #ffffff 60%, #f5f5f5 100%);">
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-wrap">
+
+        <!-- Imagen perro -->
+        <div class="d-flex align-items-center justify-content-center me-4 flex-shrink-1" data-aos="fade-right">
+            <img src="{% static 'tienda/perro.png' %}" alt="Perro feliz" class="hero-img" style="max-height:220px; width:auto; animation: float 4s ease-in-out infinite;">
+        </div>
+
+        <!-- Texto central -->
+        <div class="text-center px-3" style="max-width: 800px;" data-aos="fade-up">
+            <h1 class="mb-3">Bienvenido a <span class="brand">Paw&Whiskers</span></h1>
+            <p class="mb-4">La mejor tienda para consentir a tus mascotas</p>
+            <a href="#productos" class="btn btn-primary btn-lg">Explorar productos</a>
+        </div>
+
+        <!-- Imagen gato -->
+        <div class="d-flex align-items-center justify-content-center ms-4 flex-shrink-1" data-aos="fade-left">
+            <img src="{% static 'tienda/gato.png' %}" alt="Gato feliz" class="hero-img" style="max-height:220px; width:auto; animation: float 4s ease-in-out infinite;">
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Productos -->
+<div class="container my-5" id="productos">
+    <h2 data-aos="zoom-in">Nuestros Productos</h2>
+    <div class="row g-4 mt-4">
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="card position-relative">
+                <span class="badge bg-danger position-absolute m-2">Oferta</span>
+                
+                <div class="card-body text-center">
+                    <h5 class="card-title">Juguete para perro</h5>
+                    <p class="card-text">Diversión asegurada para tu mascota.</p>
+                    <a href="#" class="btn btn-info">Ver más</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+            <div class="card">
+                <span class="badge bg-success position-absolute m-2">Nuevo</span>
+                
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cama para gato</h5>
+                    <p class="card-text">Comodidad y estilo para tu felino.</p>
+                    <a href="#" class="btn btn-info">Ver más</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card">
+                
+                <div class="card-body text-center">
+                    <h5 class="card-title">Collar elegante</h5>
+                    <p class="card-text">Accesorio premium para tu mascota.</p>
+                    <a href="#" class="btn btn-info">Ver más</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
