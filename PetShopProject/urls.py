@@ -22,7 +22,10 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tienda.urls')),
-    path('productos/', include('productos.urls'))
+    path('productos/', include('productos.urls')),
+    path('carrito/', include('carrito.urls')),
+    path('pedido/', include('pedidos.urls')),
+    path('clientes/', include('clientes.urls')),
 
 ]
 if settings.DEBUG:  

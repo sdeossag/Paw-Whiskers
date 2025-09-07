@@ -1,0 +1,128 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
+from .models import Producto
+from .forms import ProductoForm
+import pandas as pd
+from django.core.paginator import Paginator
+
+# 🔓 Vista para todos (clientes y admin)
+def listar_productos(request):
+    productos = Producto.objects.filter(activo=True).order_by("id")
+
+    # 🔍 Filtros
+    query = request.GET.get("q")  # nombre
+    categoria = request.GET.get("categoria")
+    precio_min = request.GET.get("precio_min")
+    precio_max = request.GET.get("precio_max")
+
+    if query:
+        productos = productos.filter(nombre__icontains=query)
+
+    if categoria:
+        productos = productos.filter(clasificacion__icontains=categoria)
+
+    if precio_min:
+        productos = productos.filter(precio__gte=precio_min)
+
+    if precio_max:
+        productos = productos.filter(precio__lte=precio_max)
+
+    # Paginación (8 productos por página)
+    paginator = Paginator(productos, 8)
+    page_number = request.GET.get("page")
+    productos_page = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "productos/productos.html",
+        {
+            "productos": productos_page,
+            "categorias": Producto.objects.values_list("clasificacion", flat=True).distinct()
+        }
+    )
+
+
+def detalle_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id, activo=True)
+    return render(request, "productos/detalle_producto.html", {"producto": producto})
+
+
+# 🔒 Solo staff puede subir Excel
+def agregar_productos_excel(request):
+    if not request.user.is_staff:
+        messages.error(request, "No tienes permisos para subir productos.")
+        return redirect("home")
+
+    if request.method == "POST" and request.FILES.get("archivo_excel"):
+        excel_file = request.FILES["archivo_excel"]
+
+        try:
+            df = pd.read_excel(excel_file)
+        except Exception as e:
+            messages.error(request, f"Error al leer el Excel: {e}")
+            return redirect("home")
+
+        for _, row in df.iterrows():
+            producto = Producto(
+                nombre=row["nombre"],
+                descripcion=row.get("descripcion", ""),
+                clasificacion=row.get("clasificacion", ""),
+                precio=row.get("precio", 0),
+                cantidadDisp=row.get("cantidadDisp", 0),
+            )
+            if "imagen" in row and pd.notna(row["imagen"]):
+                producto.imagen = row["imagen"]
+            producto.save()
+
+        messages.success(request, "Productos agregados exitosamente desde Excel.")
+        return redirect("listar_productos")
+
+    return render(request, "productos/subir_productos.html")
+
+
+# ✅ Decorador para solo superusuarios
+def admin_required(view_func):
+    return user_passes_test(lambda u: u.is_superuser)(view_func)
+
+
+# 🔑 Vistas de administración (usan el MISMO template con condicionales)
+@admin_required
+def crear_producto(request):
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Producto creado con éxito ✅")
+            return redirect("listar_productos")
+    else:
+        form = ProductoForm()
+
+    return render(request, "productos/crear_producto.html", {"form": form})
+
+
+@admin_required
+def editar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Producto actualizado con éxito ✏️")
+            return redirect("listar_productos")
+    else:
+        form = ProductoForm(instance=producto)
+    return redirect("listar_productos")
+
+
+
+@admin_required
+def eliminar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == "POST":
+        producto.activo = False  # ✅ RF3: no borramos, solo desactivamos
+        producto.save()
+        messages.success(request, "Producto eliminado (oculto al cliente) 🗑️")
+        return redirect("listar_productos")
+    return redirect("listar_productos")
+

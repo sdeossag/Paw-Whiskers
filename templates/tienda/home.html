@@ -1,0 +1,52 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero -->
+<!-- Hero -->
+<section class="hero d-flex align-items-center" style="min-height: 500px; background: linear-gradient(135deg, #ffffff 60%, #f5f5f5 100%);">
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-wrap">
+
+        <!-- Imagen perro -->
+        <div class="d-flex align-items-center justify-content-center me-4 flex-shrink-1" data-aos="fade-right">
+            <img src="{% static 'tienda/perro.png' %}" alt="Perro feliz" class="hero-img" style="max-height:220px; width:auto; animation: float 4s ease-in-out infinite;">
+        </div>
+
+        <!-- Texto central -->
+        <div class="text-center px-3" style="max-width: 800px;" data-aos="fade-up">
+            <h1 class="mb-3">Bienvenido a <span class="brand">Paw&Whiskers</span></h1>
+            <p class="mb-4">La mejor tienda para consentir a tus mascotas</p>
+            
+        </div>
+
+        <!-- Imagen gato -->
+        <div class="d-flex align-items-center justify-content-center ms-4 flex-shrink-1" data-aos="fade-left">
+            <img src="{% static 'tienda/gato.png' %}" alt="Gato feliz" class="hero-img" style="max-height:220px; width:auto; animation: float 4s ease-in-out infinite;">
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Productos en el Home -->
+<div class="container my-5" id="productos">
+    <h2 data-aos="zoom-in">Nuestros Productos</h2>
+    <div class="row g-4 mt-4">
+        {% for producto in productos %}
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:"150" }}">
+            <div class="card position-relative">
+                {% if producto.etiqueta %}
+                <span class="badge bg-{{ producto.color_etiqueta }} position-absolute m-2">{{ producto.etiqueta }}</span>
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <a href="{% url 'lista_productos' %}" class="btn btn-info">Ver más</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
