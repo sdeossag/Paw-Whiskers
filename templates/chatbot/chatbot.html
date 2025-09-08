@@ -1,0 +1,54 @@
+{% extends "tienda/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">💬 Chat con PetShopBot</h2>
+    <div id="chat-box" class="border rounded p-3 mb-3" style="height:400px; overflow-y:auto; background:#f9f9f9;">
+        <!-- Mensajes se agregan aquí -->
+    </div>
+    <form id="chat-form" class="d-flex">
+        <input type="text" id="message-input" class="form-control me-2" placeholder="Escribe un mensaje..." required>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("chat-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const input = document.getElementById("message-input");
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatBox = document.getElementById("chat-box");
+
+    // Agregar mensaje del usuario
+    chatBox.innerHTML += `<div class="text-end"><span class="badge bg-primary">${message}</span></div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Limpiar input
+    input.value = "";
+
+    try {
+        const response = await fetch("{% url 'chat_view' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({ message })  // <- envío como JSON
+        });
+
+        const data = await response.json();
+
+        // Mostrar respuesta del bot
+        chatBox.innerHTML += `<div class="text-start"><span class="badge bg-secondary">${data.respuesta || data.error}</span></div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+    } catch (err) {
+        console.error("Error enviando mensaje:", err);
+        chatBox.innerHTML += `<div class="text-start"><span class="badge bg-danger">Error al enviar mensaje</span></div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+});
+
+</script>
+{% endblock %}

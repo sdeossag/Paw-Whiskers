@@ -22,7 +22,6 @@
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Navbar -->
         <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top shadow-sm">
             <div class="container">
                 <!-- Logo -->
@@ -47,6 +46,8 @@
                                 </li>
                             {% else %}
                                 <!-- Usuario normal -->
+                                 <li class="nav-item">
+                                    <a href="{% url 'chatbot_page' %}" class="nav-link">Chat</a>
                                 <li class="nav-item">
                                     <a href="{% url 'listar_productos' %}" class="nav-link">Productos</a>
                                 </li>
