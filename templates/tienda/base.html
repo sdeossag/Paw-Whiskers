@@ -44,19 +44,31 @@
                                 <li class="nav-item">
                                     <a href="{% url 'lista_productos' %}" class="btn btn-warning ms-3">Gestión</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'reporte_pedidos' %}" class="btn btn-info ms-3">Reportes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'ver_historial' %}" class="btn btn-secondary ms-3">Historial</a>
+                                </li>
                             {% else %}
                                 <!-- Usuario normal -->
-                                 <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="{% url 'chatbot_page' %}" class="nav-link">Chat</a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{% url 'listar_productos' %}" class="nav-link">Productos</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'ver_favoritos' %}" class="nav-link">Favoritos</a>
+                                </li>
                                 <li class="nav-item position-relative ms-3">
                                     <a href="{% url 'ver_carrito' %}" class="btn btn-outline-light">
-                                        <i class="bi bi-cart"></i>
+                                        <i class="bi bi-cart-fill"></i>
+                                        {% if carrito_context and carrito_context.carritoitem_set.count > 0 %}
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            3
+                                            {{ carrito_context.carritoitem_set.count }}
                                         </span>
+                                        {% endif %}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -84,11 +96,18 @@
                         {% if user.is_authenticated %}
                             {% if user.is_superuser %}
                                 <a href="{% url 'lista_productos' %}" class="btn btn-warning w-100 mb-2">Gestión Productos</a>
+                                <a href="{% url 'reporte_pedidos' %}" class="btn btn-info w-100 mb-2">Reporte Pedidos</a>
+                                <a href="{% url 'ver_historial' %}" class="btn btn-secondary w-100 mb-2">Historial Actividad</a>
                             {% else %}
                                 <a href="{% url 'listar_productos' %}" class="nav-link mb-2">Productos</a>
+                                <a href="{% url 'ver_favoritos' %}" class="nav-link mb-2">Favoritos</a>
                                 <a href="{% url 'ver_carrito' %}" class="btn btn-outline-light position-relative w-100 mb-2">
-                                    <i class="bi bi-cart"></i>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+                                    <i class="bi bi-cart-fill"></i>
+                                    {% if carrito_context and carrito_context.carritoitem_set.count > 0 %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ carrito_context.carritoitem_set.count }}
+                                    </span>
+                                    {% endif %}
                                 </a>
                                 <a href="{% url 'realizar_pedido' %}" class="btn btn-success w-100 mb-2">Mis pedidos</a>
                             {% endif %}
@@ -103,7 +122,18 @@
 
 
     <!-- Contenido dinámico -->
-    <main>
+    <main class="container pt-5 mt-5">
+        {% if messages %}
+            <div class="container my-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </main>

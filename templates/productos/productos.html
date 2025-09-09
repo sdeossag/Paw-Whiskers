@@ -8,6 +8,10 @@
         <div class="admin-actions mb-4 text-center">
             <a href="{% url 'crear_producto' %}" class="btn btn-success">➕ Nuevo producto</a>
             <a href="{% url 'agregar_productos_excel' %}" class="btn btn-secondary">📁 Subir desde Excel</a>
+            <form action="{% url 'restablecer_stock' %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning">🔄 Restablecer Stock</button>
+            </form>
         </div>
     {% endif %}
 
@@ -54,12 +58,34 @@
                     {% else %}
                         <img src="https://via.placeholder.com/300x220?text=Sin+Imagen" class="card-img-top" alt="Sin imagen">
                     {% endif %}
-                    <div class="card-body text-center">
+                    <div class="card-body text-center d-flex flex-column">
                         <h5 class="card-title">{{ producto.nombre }}</h5>
                         <p class="card-text categoria">{{ producto.clasificacion }}</p>
                         <p class="precio">${{ producto.precio }}</p>
 
-                        <a href="#" class="btn btn-info">🛒 Agregar al carrito</a>
+                        <div class="mt-auto">
+                            {% if producto.cantidadDisp == 0 %}
+                                <span class="badge bg-danger">Agotado</span>
+                            {% elif producto.cantidadDisp <= 5 %}
+                                <span class="badge bg-warning text-dark">¡Pocas unidades!</span>
+                            {% endif %}
+
+                            {% if producto.cantidadDisp > 0 %}
+                                <div class="btn-group w-100 mt-2" role="group">
+                                    <a href="{% url 'agregar_carrito' producto.id %}" class="btn btn-primary">🛒 Al Carrito</a>
+                                    <a href="{% url 'agregar_favorito' producto.id %}" class="btn btn-outline-danger" title="Añadir a Favoritos">
+                                        <i class="bi bi-heart-fill"></i>
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="btn-group w-100 mt-2" role="group">
+                                    <a href="#" class="btn btn-primary disabled">🛒 Al Carrito</a>
+                                    <a href="#" class="btn btn-outline-danger disabled" title="Añadir a Favoritos">
+                                        <i class="bi bi-heart-fill"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
 
                         {% if user.is_superuser %}
                             <div class="admin-tools mt-3">

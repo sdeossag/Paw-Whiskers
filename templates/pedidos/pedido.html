@@ -1,0 +1,55 @@
+{% extends "tienda/base.html" %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Confirmar Pedido (Simulación)</h2>
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">Resumen de tu compra</h5>
+                    <ul class="list-group mb-3">
+                        {% for item in items %}
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">{{ item.producto.nombre }}</h6>
+                                <small class="text-muted">Cantidad: {{ item.cantidad }}</small>
+                            </div>
+                            <span class="text-muted">${{ item.subtotal|floatformat:2 }}</span>
+                        </li>
+                        {% endfor %}
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">Impuestos (IVA 19%)</h6>
+                            </div>
+                            <span class="text-success">${{ carrito.impuestos|floatformat:2 }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Total (COP)</strong>
+                            <strong>${{ carrito.total_carrito|floatformat:2 }}</strong>
+                        </li>
+                    </ul>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">Información de Envío</h5>
+                    <p class="mb-1"><strong>Dirección:</strong> {{ request.user.cuentacliente.direccionPedido|default:"No especificada" }}</p>
+                    <p><strong>Método de Pago:</strong> {{ request.user.cuentacliente.metodoPago|default:"No especificado" }}</p>
+                    <small class="text-muted">Esta es una simulación. No se realizará ningún cobro ni envío real.</small>
+
+                    <hr class="my-4">
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Confirmar Pedido</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

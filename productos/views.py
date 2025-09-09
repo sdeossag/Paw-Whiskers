@@ -126,3 +126,11 @@ def eliminar_producto(request, pk):
         return redirect("listar_productos")
     return redirect("listar_productos")
 
+@admin_required
+def restablecer_stock(request):
+    if request.method == "POST":
+        # Restablecer el stock de todos los productos a un valor por defecto, por ejemplo 20
+        Producto.objects.all().update(cantidadDisp=20)
+        messages.success(request, "El stock de todos los productos ha sido restablecido a 20.")
+    return redirect("listar_productos")
+

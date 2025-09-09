@@ -2,10 +2,17 @@ from django.db import models
 from clientes.models import CuentaCliente
 
 class Pedido(models.Model):
+    ESTADO_CHOICES = [
+        ('Pendiente', 'Pendiente'),
+        ('Finalizado', 'Finalizado'),
+        ('Cancelado', 'Cancelado'),
+    ]
+
     cliente = models.ForeignKey(CuentaCliente, on_delete=models.CASCADE)
     fechaPedido = models.DateField(auto_now_add=True)
     totalPedido = models.DecimalField(max_digits=10, decimal_places=2)
     direccionPedido = models.CharField(max_length=200)
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='Pendiente')
 
     def __str__(self):
         return f"Pedido #{self.id} de {self.cliente.user.username}"
