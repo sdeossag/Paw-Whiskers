@@ -1,4 +1,4 @@
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _, get_language
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -30,21 +30,37 @@ def chat_view(request):
         productos_info_text = "\n".join(
             [f"- {p['nombre']} ({p['clasificacion']}): ${p['precio']} - Disponibles: {p['cantidadDisp']}"
              for p in context_data.get("productos", [])]
-        ) or _("No hay productos disponibles actualmente.")
+        )
+        
+        if not productos_info_text:
+            productos_info_text = _("No hay productos disponibles actualmente.")
+
+        # Detectar idioma actual
+        idioma = get_language()
+        
+        # Mensajes del sistema según el idioma
+        if idioma == 'en':
+            system_message = (
+                "You are a specialized assistant for pet products.\n"
+                "Use the following available products information to answer the user:\n\n"
+                f"{productos_info_text}\n\n"
+                "If the user asks about products, prioritize giving concrete recommendations based on these products.\n"
+                "If there are no relevant products, give general pet advice.\n"
+                "Respond clearly, friendly and professionally."
+            )
+        else:  # español por defecto
+            system_message = (
+                "Eres un asistente especializado en productos para mascotas.\n"
+                "Usa la siguiente información de los productos disponibles para responder al usuario:\n\n"
+                f"{productos_info_text}\n\n"
+                "Si el usuario pregunta algo relacionado con productos, prioriza dar recomendaciones concretas basadas en estos productos.\n"
+                "Si no hay productos relevantes, da consejos generales de mascotas.\n"
+                "Responde de forma clara, amigable y profesional."
+            )
 
         # Construir mensajes para LLM
         messages = [
-            {
-                "role": "system",
-                "content": _(
-                    "Eres un asistente especializado en productos para mascotas.\n"
-                    "Usa la siguiente información de los productos disponibles para responder al usuario:\n\n"
-                    "%(productos)s\n\n"
-                    "Si el usuario pregunta algo relacionado con productos, prioriza dar recomendaciones concretas basadas en estos productos.\n"
-                    "Si no hay productos relevantes, da consejos generales de mascotas.\n"
-                    "Responde de forma clara, amigable y profesional."
-                ) % {"productos": productos_info_text},
-            },
+            {"role": "system", "content": system_message},
             {"role": "user", "content": user_message},
         ]
 
@@ -52,7 +68,8 @@ def chat_view(request):
         return JsonResponse({"respuesta": bot_reply})
 
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        print(f"Error en chat_view: {e}")
+        return JsonResponse({"error": _("Error procesando tu mensaje")}, status=500)
 
 
 def chatbot_page(request):

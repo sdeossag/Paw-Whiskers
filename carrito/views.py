@@ -1,4 +1,4 @@
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as translate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Carrito, CarritoItem, Favorito
@@ -31,12 +31,12 @@ def agregar_carrito(request, producto_id):
         item.cantidad += 1
         item.save()
 
-    # Registrar actividad
+    # Registrar actividad (solo clientes)
     if not request.user.is_superuser:
         RegistroActividad.objects.create(
             usuario=request.user,
-            tipo_actividad=_("CARRITO"),
-            detalles=_("Añadió %(producto)s al carrito") % {"producto": producto.nombre}
+            tipo_actividad="CARRITO",
+            detalles=translate("Añadió %(producto)s al carrito") % {"producto": producto.nombre}
         )
 
     return redirect("ver_carrito")
@@ -88,8 +88,8 @@ def agregar_favorito(request, producto_id):
     if not request.user.is_superuser:
         RegistroActividad.objects.create(
             usuario=request.user,
-            tipo_actividad=_("FAVORITO"),
-            detalles=_("Añadió %(producto)s a favoritos") % {"producto": producto.nombre}
+            tipo_actividad="FAVORITO",
+            detalles=translate("Añadió %(producto)s a favoritos") % {"producto": producto.nombre}
         )
 
     return redirect(request.META.get("HTTP_REFERER", "listar_productos"))

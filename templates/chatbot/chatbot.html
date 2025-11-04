@@ -1,33 +1,42 @@
 {% extends "tienda/base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center mb-4">{% trans "💬 Chat con PetShopBot" %}</h2>
-    <div id="chat-box" class="border rounded p-3 mb-3" style="height:400px; overflow-y:auto; background:#f9f9f9;">
-        <!-- Mensajes se agregan aquí -->
+<link rel="stylesheet" href="{% static 'C:/Users/ASUS/Downloads/Paw-Whiskers-Entrega2/Paw-Whiskers/static/tienda/style.css' %}">
+
+<div class="container py-5" style="max-width: 950px;">
+  <h2 class="fw-bold mb-4 text-center">{% trans "💬 Chat con PetShopBot" %}</h2>
+
+  <div id="chat-box" class="chat-box p-4 border rounded-4 bg-light mb-3 shadow-sm">
+    <div class="text-muted small mb-3 text-center">
+      💬 {% trans "Escribe tu mensaje para comenzar" %}
     </div>
-    <form id="chat-form" class="d-flex">
-        <input type="text" id="message-input" class="form-control me-2" placeholder="Escribe un mensaje..." required>
-        <button type="submit" class="btn btn-primary">{% trans "Enviar" %}</button>
-    </form>
+  </div>
+
+  <form id="chat-form" class="d-flex gap-2">
+    <input 
+      type="text" 
+      id="message-input" 
+      class="form-control"
+      placeholder="{% trans 'Escribe tu mensaje...' %}" 
+      required
+    >
+    <button type="submit" class="btn btn-dark px-4">{% trans "Enviar" %}</button>
+  </form>
 </div>
 
 <script>
 document.getElementById("chat-form").addEventListener("submit", async function(e) {
     e.preventDefault();
+    
     const input = document.getElementById("message-input");
     const message = input.value.trim();
     if (!message) return;
 
-    const chatBox = document.getElementById("chat-box");
-
-    // Agregar mensaje del usuario
-    chatBox.innerHTML += `<div class="text-end"><span class="badge bg-primary">${message}</span></div>`;
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Limpiar input
+    appendMessage("user", message);
     input.value = "";
+    appendTyping();
 
     try {
         const response = await fetch("{% url 'chat_view' %}", {
@@ -36,21 +45,58 @@ document.getElementById("chat-form").addEventListener("submit", async function(e
                 "Content-Type": "application/json",
                 "X-CSRFToken": "{{ csrf_token }}"
             },
-            body: JSON.stringify({ message })  // <- envío como JSON
+            body: JSON.stringify({ message })
         });
 
         const data = await response.json();
+        removeTyping();
 
         // Mostrar respuesta del bot
-        chatBox.innerHTML += `<div class="text-start"><span class="badge bg-secondary">${data.respuesta || data.error}</span></div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        appendMessage("assistant", data.respuesta || data.error || "{% trans 'Error al enviar mensaje' %}");
 
     } catch (err) {
         console.error("Error enviando mensaje:", err);
-        chatBox.innerHTML += `<div class="text-start"><span class="badge bg-danger">{% trans "Error al enviar mensaje" %}</span></div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        removeTyping();
+        appendMessage("assistant", "⚠️ {% trans 'Error al conectar con el servidor.' %}");
     }
 });
 
+function appendMessage(role, content) {
+  const chatBox = document.getElementById("chat-box");
+  const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const isUser = role === "user";
+  const bubbleColor = isUser ? "bg-primary text-white" : "bg-white border";
+
+  const html = `
+    <div class="d-flex ${isUser ? 'justify-content-end' : 'justify-content-start'} mb-3">
+      <div class="p-3 rounded-4 ${bubbleColor}" style="max-width: 75%;">
+        <div>${content}</div>
+        <div class="text-muted small mt-1">${timestamp}</div>
+      </div>
+    </div>
+  `;
+  chatBox.insertAdjacentHTML("beforeend", html);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function appendTyping() {
+  const chatBox = document.getElementById("chat-box");
+  const typingHTML = `
+    <div id="typing-indicator" class="d-flex align-items-center mb-2">
+      <div class="bg-white border rounded-4 px-3 py-2">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+    </div>
+  `;
+  chatBox.insertAdjacentHTML("beforeend", typingHTML);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function removeTyping() {
+  const typing = document.getElementById("typing-indicator");
+  if (typing) typing.remove();
+}
 </script>
 {% endblock %}

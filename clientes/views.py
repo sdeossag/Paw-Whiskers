@@ -11,15 +11,18 @@ def es_admin(user):
     return user.is_superuser
 
 def login_view(request):
-    if request.method == _("POST"):
-        username = request.POST[_("username")]
-        password = request.POST[_("password")]
+    if request.method == "POST":  # ❌ NO traducir "POST"
+        username = request.POST.get("username")  # ❌ NO traducir "username"
+        password = request.POST.get("password")  # ❌ NO traducir "password"
+        
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
             return redirect("home")
         else:
-            messages.error(request, _("Usuario o contraseña incorrectos"))
+            messages.error(request, _("Usuario o contraseña incorrectos"))  # ✅ SÍ traducir mensajes
+    
     return render(request, "clientes/login.html")
 
 def logout_view(request):
@@ -27,23 +30,23 @@ def logout_view(request):
     return redirect("home")
 
 def register_view(request):
-    if request.method == _("POST"):
-        username = request.POST[_("username")]
-        email = request.POST[_("email")]
-        password = request.POST[_("password1")]
-        password2 = request.POST[_("password2")]
+    if request.method == "POST":  # ❌ NO traducir "POST"
+        username = request.POST.get("username")  # ❌ NO traducir nombres de campos
+        email = request.POST.get("email")
+        password = request.POST.get("password1")
+        password2 = request.POST.get("password2")
 
         if password != password2:
-            messages.error(request, _("Las contraseñas no coinciden"))
+            messages.error(request, _("Las contraseñas no coinciden"))  # ✅ SÍ traducir mensajes
             return redirect("register")
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, _("El usuario ya existe"))
+            messages.error(request, _("El usuario ya existe"))  # ✅ SÍ traducir mensajes
             return redirect("register")
 
         user = User.objects.create_user(username=username, email=email, password=password)
         login(request, user)
-        messages.success(request, f"Bienvenido {username}, tu cuenta fue creada 🎉")
+        messages.success(request, _("Bienvenido %(username)s, tu cuenta fue creada 🎉") % {'username': username})  # ✅ SÍ traducir mensajes
         return redirect("home")
 
     return render(request, "clientes/register.html")
@@ -55,18 +58,18 @@ def ver_historial(request):
     tipos_actividad = RegistroActividad.TIPO_ACTIVIDAD_CHOICES
 
     # Filtrado
-    filtro_tipo = request.GET.get(_("tipo_actividad"), '')
+    filtro_tipo = request.GET.get("tipo_actividad", '')  # ❌ NO traducir nombres de parámetros
     if filtro_tipo:
         actividades_lista = actividades_lista.filter(tipo_actividad=filtro_tipo)
 
     # Paginación
     paginator = Paginator(actividades_lista, 15)  # 15 registros por página
-    page_number = request.GET.get(_("page"))
+    page_number = request.GET.get("page")  # ❌ NO traducir "page"
     actividades = paginator.get_page(page_number)
 
     context = {
-        _("actividades"): actividades,
-        _("tipos_actividad"): tipos_actividad,
-        _("filtro_actual"): filtro_tipo
+        "actividades": actividades,  # ❌ NO traducir nombres de variables en contexto
+        "tipos_actividad": tipos_actividad,
+        "filtro_actual": filtro_tipo
     }
     return render(request, 'clientes/historial.html', context)
