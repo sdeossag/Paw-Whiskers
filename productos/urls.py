@@ -12,4 +12,7 @@ urlpatterns = [
     path("admin/productos/<int:pk>/editar/", views.editar_producto, name="editar_producto"),
     path("admin/productos/<int:pk>/eliminar/", views.eliminar_producto, name="eliminar_producto"),
     path("admin/productos/restablecer-stock/", views.restablecer_stock, name="restablecer_stock"),
+
+    # API
+    path("api/productos-en-stock/", views.productos_en_stock_api, name="productos_en_stock_api"),
 ]

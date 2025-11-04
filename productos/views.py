@@ -134,3 +134,24 @@ def restablecer_stock(request):
         Producto.objects.all().update(cantidadDisp=20)
         messages.success(request, _("El stock de todos los productos ha sido restablecido a 20."))
     return redirect("listar_productos")
+
+from django.http import JsonResponse
+
+def productos_en_stock_api(request):
+    """
+    Vista de API para devolver productos en stock en formato JSON.
+    """
+    productos = Producto.objects.filter(activo=True, cantidadDisp__gt=0)
+    data = [
+        {
+            "id": producto.id,
+            "nombre": producto.nombre,
+            "descripcion": producto.descripcion,
+            "clasificacion": producto.clasificacion,
+            "precio": float(producto.precio),
+            "cantidadDisp": producto.cantidadDisp,
+            "imagen": request.build_absolute_uri(producto.imagen.url) if producto.imagen else None,
+        }
+        for producto in productos
+    ]
+    return JsonResponse(data, safe=False)
