@@ -1,11 +1,13 @@
 {% extends 'tienda/base.html' %}
+{% load i18n %}
+
 {% block content %}
 <div class="container my-5">
-    <h2>Subir productos desde Excel</h2>
+    <h2>{% trans "Subir productos desde Excel" %}</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="archivo_excel" accept=".xlsx" required>
-        <button type="submit" class="btn btn-success mt-3">Subir Excel</button>
+        <button type="submit" class="btn btn-success mt-3">{% trans "Subir Excel" %}</button>
     </form>
 </div>
 {% endblock %}

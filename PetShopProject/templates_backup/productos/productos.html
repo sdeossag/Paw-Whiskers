@@ -1,0 +1,226 @@
+{% extends 'tienda/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="section-title">🐾 Productos Paw&Whiskers</h2>
+ 
+    {% if user.is_superuser %}
+        <div class="admin-actions mb-4 text-center">
+            <a href="{% url 'crear_producto' %}" class="btn btn-success">➕ Nuevo producto</a>
+            <a href="{% url 'agregar_productos_excel' %}" class="btn btn-secondary">📁 Subir desde Excel</a>
+            <form action="{% url 'restablecer_stock' %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning">🔄 Restablecer Stock</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <!-- FILTROS -->
+<form method="get" class="mb-4 p-3 bg-light rounded shadow-sm">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label for="q" class="form-label">Buscar por nombre</label>
+            <input type="text" id="q" name="q" class="form-control" value="{{ request.GET.q }}">
+        </div>
+        <div class="col-md-3">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select id="categoria" name="categoria" class="form-select">
+                <option value="">Todas</option>
+                {% for cat in categorias %}
+                    <option value="{{ cat }}" {% if request.GET.categoria == cat %}selected{% endif %}>
+                        {{ cat }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="precio_min" class="form-label">Precio mínimo</label>
+            <input type="number" id="precio_min" name="precio_min" class="form-control" value="{{ request.GET.precio_min }}">
+        </div>
+        <div class="col-md-2">
+            <label for="precio_max" class="form-label">Precio máximo</label>
+            <input type="number" id="precio_max" name="precio_max" class="form-control" value="{{ request.GET.precio_max }}">
+        </div>
+        <div class="col-md-1 d-grid">
+            <button type="submit" class="btn btn-primary">🔍</button>
+        </div>
+    </div>
+</form>
+
+
+    <!-- 🛍️ GRID DE PRODUCTOS -->
+    <div class="row g-4 product-grid">
+        {% for producto in productos %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card product-card animate-fadeIn">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x220?text=Sin+Imagen" class="card-img-top" alt="Sin imagen">
+                    {% endif %}
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text categoria">{{ producto.clasificacion }}</p>
+                        <p class="precio">${{ producto.precio }}</p>
+
+                        <div class="mt-auto">
+                            {% if producto.cantidadDisp == 0 %}
+                                <span class="badge bg-danger">Agotado</span>
+                            {% elif producto.cantidadDisp <= 5 %}
+                                <span class="badge bg-warning text-dark">¡Pocas unidades!</span>
+                            {% endif %}
+
+                            {% if producto.cantidadDisp > 0 %}
+                                <div class="btn-group w-100 mt-2" role="group">
+                                    <a href="{% url 'agregar_carrito' producto.id %}" class="btn btn-primary">🛒 Al Carrito</a>
+                                    <a href="{% url 'agregar_favorito' producto.id %}" class="btn btn-outline-danger" title="Añadir a Favoritos">
+                                        <i class="bi bi-heart-fill"></i>
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="btn-group w-100 mt-2" role="group">
+                                    <a href="#" class="btn btn-primary disabled">🛒 Al Carrito</a>
+                                    <a href="#" class="btn btn-outline-danger disabled" title="Añadir a Favoritos">
+                                        <i class="bi bi-heart-fill"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if user.is_superuser %}
+                            <div class="admin-tools mt-3">
+                                <p class="stock">Stock: {{ producto.cantidadDisp }}</p>
+                                <p class="estado">Activo: {{ producto.activo|yesno:"Sí,No" }}</p>
+
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarModal{{ producto.id }}">✏️</button>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarModal{{ producto.id }}">🗑️</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal Editar -->
+            <div class="modal fade" id="editarModal{{ producto.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form method="POST"
+                              action="{% url 'editar_producto' producto.id %}"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title">Editar {{ producto.nombre }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre</label>
+                                    <input type="text" name="nombre" value="{{ producto.nombre }}" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Descripción</label>
+                                    <textarea name="descripcion" class="form-control" rows="3">{{ producto.descripcion }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Clasificación</label>
+                                    <input type="text" name="clasificacion" value="{{ producto.clasificacion }}" class="form-control">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Precio</label>
+                                        <input type="number" step="0.01" name="precio" value="{{ producto.precio }}" class="form-control" min="0">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Stock</label>
+                                        <input type="number" name="cantidadDisp" value="{{ producto.cantidadDisp }}" class="form-control" min="0">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Imagen (opcional)</label>
+                                    <input type="file" name="imagen" class="form-control">
+                                    {% if producto.imagen %}
+                                        <small class="text-muted d-block mt-2">Actual: {{ producto.imagen.name }}</small>
+                                    {% endif %}
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="activo" class="form-check-input"
+                                           {% if producto.activo %}checked{% endif %}>
+                                    <label class="form-check-label">Activo</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-warning">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Eliminar -->
+            <div class="modal fade" id="eliminarModal{{ producto.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="POST" action="{% url 'eliminar_producto' producto.id %}">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title">Eliminar producto</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Estás seguro de que deseas eliminar <strong>{{ producto.nombre }}</strong>?</p>
+                                <p class="text-muted">Este producto quedará inactivo y no será visible para clientes.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+    <!-- PAGINACIÓN -->
+
+{% if productos.has_other_pages %}
+    <nav aria-label="Page navigation" class="mt-5">
+        <ul class="pagination justify-content-center">
+            {% if productos.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ productos.previous_page_number }}&{{ request.GET.urlencode|safe|cut:'page=' }}">
+                        «
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">«</span></li>
+            {% endif %}
+
+            {% for num in productos.paginator.page_range %}
+                {% if productos.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}&{{ request.GET.urlencode|safe|cut:'page=' }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if productos.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ productos.next_page_number }}&{{ request.GET.urlencode|safe|cut:'page=' }}">
+                        »
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">»</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}
+
+</div>
+{% endblock %}

@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 # chatbot/services.py
 from productos.models import Producto
 
@@ -9,10 +10,10 @@ def get_context_data(limit=10):
     productos = Producto.objects.filter(activo=True)[:limit]
     productos_list = [
         {
-            "nombre": p.nombre,
-            "clasificacion": p.clasificacion,
-            "precio": float(p.precio),
-            "cantidadDisp": p.cantidadDisp,
+            _("nombre"): p.nombre,
+            _("clasificacion"): p.clasificacion,
+            _("precio"): float(p.precio),
+            _("cantidadDisp"): p.cantidadDisp,
         }
         for p in productos
     ]

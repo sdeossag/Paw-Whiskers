@@ -1,11 +1,12 @@
+from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Carrito, CarritoItem, Favorito
 from clientes.models import CuentaCliente, RegistroActividad
 from productos.models import Producto
 
-# Vistas del Carrito
 
+# 🛒 Vistas del Carrito
 @login_required
 def ver_carrito(request):
     cliente = get_object_or_404(CuentaCliente, user=request.user)
@@ -13,30 +14,33 @@ def ver_carrito(request):
     items = carrito.carritoitem_set.all()
     return render(request, "carrito/carrito.html", {"carrito": carrito, "items": items})
 
+
 @login_required
 def agregar_carrito(request, producto_id):
     cliente = get_object_or_404(CuentaCliente, user=request.user)
     carrito, _ = Carrito.objects.get_or_create(cliente=cliente)
     producto = get_object_or_404(Producto, id=producto_id)
 
+    # Crear o actualizar item del carrito
     item, created = CarritoItem.objects.get_or_create(
-        carrito=carrito, 
+        carrito=carrito,
         producto=producto,
-        defaults={'cantidad': 1}
+        defaults={"cantidad": 1}
     )
     if not created:
         item.cantidad += 1
         item.save()
-    
+
     # Registrar actividad
     if not request.user.is_superuser:
         RegistroActividad.objects.create(
-            usuario=request.user, 
-            tipo_actividad='CARRITO', 
-            detalles=f'Añadió \'{producto.nombre}\' al carrito'
+            usuario=request.user,
+            tipo_actividad=_("CARRITO"),
+            detalles=_("Añadió %(producto)s al carrito") % {"producto": producto.nombre}
         )
 
     return redirect("ver_carrito")
+
 
 @login_required
 def restar_carrito(request, producto_id):
@@ -52,10 +56,10 @@ def restar_carrito(request, producto_id):
         else:
             item.delete()
     except CarritoItem.DoesNotExist:
-        # Si por alguna razón el item no existe, no hacemos nada.
-        pass
+        pass  # No hay nada que restar si el item no existe
 
     return redirect("ver_carrito")
+
 
 @login_required
 def eliminar_item_carrito(request, item_id):
@@ -63,14 +67,15 @@ def eliminar_item_carrito(request, item_id):
     item.delete()
     return redirect("ver_carrito")
 
-# Vistas de Favoritos
 
+# 💛 Vistas de Favoritos
 @login_required
 def ver_favoritos(request):
     cliente = get_object_or_404(CuentaCliente, user=request.user)
     favoritos, _ = Favorito.objects.get_or_create(cliente=cliente)
     productos = favoritos.productos.all()
-    return render(request, 'carrito/favoritos.html', {'favoritos': favoritos, 'productos': productos})
+    return render(request, "carrito/favoritos.html", {"favoritos": favoritos, "productos": productos})
+
 
 @login_required
 def agregar_favorito(request, producto_id):
@@ -82,12 +87,13 @@ def agregar_favorito(request, producto_id):
     # Registrar actividad
     if not request.user.is_superuser:
         RegistroActividad.objects.create(
-            usuario=request.user, 
-            tipo_actividad='FAVORITO', 
-            detalles=f'Añadió \'{producto.nombre}\' a favoritos'
+            usuario=request.user,
+            tipo_actividad=_("FAVORITO"),
+            detalles=_("Añadió %(producto)s a favoritos") % {"producto": producto.nombre}
         )
 
-    return redirect(request.META.get('HTTP_REFERER', 'listar_productos'))
+    return redirect(request.META.get("HTTP_REFERER", "listar_productos"))
+
 
 @login_required
 def eliminar_favorito(request, producto_id):
@@ -95,15 +101,16 @@ def eliminar_favorito(request, producto_id):
     favoritos = get_object_or_404(Favorito, cliente=cliente)
     producto = get_object_or_404(Producto, id=producto_id)
     favoritos.productos.remove(producto)
-    return redirect('ver_favoritos')
+    return redirect("ver_favoritos")
+
 
 @login_required
 def mover_favorito_a_carrito(request, producto_id):
-    # Primero, agregamos el producto al carrito (usando la lógica que ya teníamos)
+    # Primero, agregamos el producto al carrito
     agregar_carrito(request, producto_id)
-    # Luego, lo eliminamos de la lista de favoritos
+    # Luego, lo eliminamos de favoritos
     cliente = get_object_or_404(CuentaCliente, user=request.user)
     favoritos = get_object_or_404(Favorito, cliente=cliente)
     producto = get_object_or_404(Producto, id=producto_id)
     favoritos.productos.remove(producto)
-    return redirect('ver_carrito')
+    return redirect("ver_carrito")

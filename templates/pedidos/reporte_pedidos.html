@@ -1,16 +1,16 @@
 {% extends "tienda/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container my-5">
     {% if user.is_superuser %}
     <div class="row mb-4 align-items-center">
         <div class="col-md-6">
-            <h2 class="section-title">Reporte de Pedidos</h2>
+            <h2 class="section-title">{% trans "Reporte de Pedidos" %}</h2>
         </div>
         <div class="col-md-6 text-end">
             <a href="{% url 'exportar_pedidos_csv' %}" class="btn btn-success"> 
-                <i class="bi bi-file-earmark-spreadsheet"></i> Exportar a CSV
-            </a>
+                <i class="bi bi-file-earmark-spreadsheet"></i>{% trans "Exportar a CSV" %}</a>
         </div>
     </div>
 
@@ -20,12 +20,12 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID Pedido</th>
-                            <th>Cliente</th>
-                            <th>Fecha</th>
-                            <th>Total</th>
-                            <th>Estado</th>
-                            <th class="text-center">Acciones</th>
+                            <th>{% trans "ID Pedido" %}</th>
+                            <th>{% trans "Cliente" %}</th>
+                            <th>{% trans "Fecha" %}</th>
+                            <th>{% trans "Total" %}</th>
+                            <th>{% trans "Estado" %}</th>
+                            <th class="text-center">{% trans "Acciones" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,18 +46,16 @@
                             </td>
                             <td class="text-center">
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-{{pedido.id}}" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Cambiar Estado
-                                    </button>
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-{{pedido.id}}" data-bs-toggle="dropdown" aria-expanded="false">{% trans "Cambiar Estado" %}</button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{pedido.id}}">
                                         {% if pedido.estado != 'Pendiente' %}
-                                            <li><a class="dropdown-item" href="{% url 'cambiar_estado_pedido' pedido.id 'Pendiente' %}">Marcar como Pendiente</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'cambiar_estado_pedido' pedido.id 'Pendiente' %}">{% trans "Marcar como Pendiente" %}</a></li>
                                         {% endif %}
                                         {% if pedido.estado != 'Finalizado' %}
-                                            <li><a class="dropdown-item" href="{% url 'cambiar_estado_pedido' pedido.id 'Finalizado' %}">Marcar como Finalizado</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'cambiar_estado_pedido' pedido.id 'Finalizado' %}">{% trans "Marcar como Finalizado" %}</a></li>
                                         {% endif %}
                                         {% if pedido.estado != 'Cancelado' %}
-                                            <li><a class="dropdown-item" href="{% url 'cambiar_estado_pedido' pedido.id 'Cancelado' %}">Marcar como Cancelado</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'cambiar_estado_pedido' pedido.id 'Cancelado' %}">{% trans "Marcar como Cancelado" %}</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
@@ -65,7 +63,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="6" class="text-center">No hay pedidos para mostrar.</td>
+                            <td colspan="6" class="text-center">{% trans "No hay pedidos para mostrar." %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -74,7 +72,7 @@
         </div>
     </div>
     {% else %}
-    <div class="alert alert-danger">No tienes permisos para ver esta página.</div>
+    <div class="alert alert-danger">{% trans "No tienes permisos para ver esta página." %}</div>
     {% endif %}
 </div>
 {% endblock %}

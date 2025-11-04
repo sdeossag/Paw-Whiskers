@@ -1,16 +1,17 @@
 {% extends 'tienda/base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container my-5">
-    <h2 class="section-title">🐾 Productos Paw&Whiskers</h2>
+    <h2 class="section-title">{% trans "🐾 Productos Paw&Whiskers" %}</h2>
  
     {% if user.is_superuser %}
         <div class="admin-actions mb-4 text-center">
-            <a href="{% url 'crear_producto' %}" class="btn btn-success">➕ Nuevo producto</a>
-            <a href="{% url 'agregar_productos_excel' %}" class="btn btn-secondary">📁 Subir desde Excel</a>
+            <a href="{% url 'crear_producto' %}" class="btn btn-success">{% trans "➕ Nuevo producto" %}</a>
+            <a href="{% url 'agregar_productos_excel' %}" class="btn btn-secondary">{% trans "📁 Subir desde Excel" %}</a>
             <form action="{% url 'restablecer_stock' %}" method="post" class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-warning">🔄 Restablecer Stock</button>
+                <button type="submit" class="btn btn-warning">{% trans "🔄 Restablecer Stock" %}</button>
             </form>
         </div>
     {% endif %}
@@ -19,13 +20,13 @@
 <form method="get" class="mb-4 p-3 bg-light rounded shadow-sm">
     <div class="row g-3 align-items-end">
         <div class="col-md-4">
-            <label for="q" class="form-label">Buscar por nombre</label>
+            <label for="q" class="form-label">{% trans "Buscar por nombre" %}</label>
             <input type="text" id="q" name="q" class="form-control" value="{{ request.GET.q }}">
         </div>
         <div class="col-md-3">
-            <label for="categoria" class="form-label">Categoría</label>
+            <label for="categoria" class="form-label">{% trans "Categoría" %}</label>
             <select id="categoria" name="categoria" class="form-select">
-                <option value="">Todas</option>
+                <option value="">{% trans "Todas" %}</option>
                 {% for cat in categorias %}
                     <option value="{{ cat }}" {% if request.GET.categoria == cat %}selected{% endif %}>
                         {{ cat }}
@@ -34,11 +35,11 @@
             </select>
         </div>
         <div class="col-md-2">
-            <label for="precio_min" class="form-label">Precio mínimo</label>
+            <label for="precio_min" class="form-label">{% trans "Precio mínimo" %}</label>
             <input type="number" id="precio_min" name="precio_min" class="form-control" value="{{ request.GET.precio_min }}">
         </div>
         <div class="col-md-2">
-            <label for="precio_max" class="form-label">Precio máximo</label>
+            <label for="precio_max" class="form-label">{% trans "Precio máximo" %}</label>
             <input type="number" id="precio_max" name="precio_max" class="form-control" value="{{ request.GET.precio_max }}">
         </div>
         <div class="col-md-1 d-grid">
@@ -65,21 +66,21 @@
 
                         <div class="mt-auto">
                             {% if producto.cantidadDisp == 0 %}
-                                <span class="badge bg-danger">Agotado</span>
+                                <span class="badge bg-danger">{% trans "Agotado" %}</span>
                             {% elif producto.cantidadDisp <= 5 %}
-                                <span class="badge bg-warning text-dark">¡Pocas unidades!</span>
+                                <span class="badge bg-warning text-dark">{% trans "¡Pocas unidades!" %}</span>
                             {% endif %}
 
                             {% if producto.cantidadDisp > 0 %}
                                 <div class="btn-group w-100 mt-2" role="group">
-                                    <a href="{% url 'agregar_carrito' producto.id %}" class="btn btn-primary">🛒 Al Carrito</a>
+                                    <a href="{% url 'agregar_carrito' producto.id %}" class="btn btn-primary">{% trans "🛒 Al Carrito" %}</a>
                                     <a href="{% url 'agregar_favorito' producto.id %}" class="btn btn-outline-danger" title="Añadir a Favoritos">
                                         <i class="bi bi-heart-fill"></i>
                                     </a>
                                 </div>
                             {% else %}
                                 <div class="btn-group w-100 mt-2" role="group">
-                                    <a href="#" class="btn btn-primary disabled">🛒 Al Carrito</a>
+                                    <a href="#" class="btn btn-primary disabled">{% trans "🛒 Al Carrito" %}</a>
                                     <a href="#" class="btn btn-outline-danger disabled" title="Añadir a Favoritos">
                                         <i class="bi bi-heart-fill"></i>
                                     </a>
@@ -115,29 +116,29 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label class="form-label">Nombre</label>
+                                    <label class="form-label">{% trans "Nombre" %}</label>
                                     <input type="text" name="nombre" value="{{ producto.nombre }}" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Descripción</label>
+                                    <label class="form-label">{% trans "Descripción" %}</label>
                                     <textarea name="descripcion" class="form-control" rows="3">{{ producto.descripcion }}</textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Clasificación</label>
+                                    <label class="form-label">{% trans "Clasificación" %}</label>
                                     <input type="text" name="clasificacion" value="{{ producto.clasificacion }}" class="form-control">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Precio</label>
+                                        <label class="form-label">{% trans "Precio" %}</label>
                                         <input type="number" step="0.01" name="precio" value="{{ producto.precio }}" class="form-control" min="0">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Stock</label>
+                                        <label class="form-label">{% trans "Stock" %}</label>
                                         <input type="number" name="cantidadDisp" value="{{ producto.cantidadDisp }}" class="form-control" min="0">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Imagen (opcional)</label>
+                                    <label class="form-label">{% trans "Imagen (opcional)" %}</label>
                                     <input type="file" name="imagen" class="form-control">
                                     {% if producto.imagen %}
                                         <small class="text-muted d-block mt-2">Actual: {{ producto.imagen.name }}</small>
@@ -146,12 +147,12 @@
                                 <div class="form-check">
                                     <input type="checkbox" name="activo" class="form-check-input"
                                            {% if producto.activo %}checked{% endif %}>
-                                    <label class="form-check-label">Activo</label>
+                                    <label class="form-check-label">{% trans "Activo" %}</label>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-warning">Guardar cambios</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancelar" %}</button>
+                                <button type="submit" class="btn btn-warning">{% trans "Guardar cambios" %}</button>
                             </div>
                         </form>
                     </div>
@@ -165,16 +166,16 @@
                         <form method="POST" action="{% url 'eliminar_producto' producto.id %}">
                             {% csrf_token %}
                             <div class="modal-header">
-                                <h5 class="modal-title">Eliminar producto</h5>
+                                <h5 class="modal-title">{% trans "Eliminar producto" %}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <p>¿Estás seguro de que deseas eliminar <strong>{{ producto.nombre }}</strong>?</p>
-                                <p class="text-muted">Este producto quedará inactivo y no será visible para clientes.</p>
+                                <p>{% trans "¿Estás seguro de que deseas eliminar" %}<strong>{{ producto.nombre }}</strong>?</p>
+                                <p class="text-muted">{% trans "Este producto quedará inactivo y no será visible para clientes." %}</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancelar" %}</button>
+                                <button type="submit" class="btn btn-danger">{% trans "Eliminar" %}</button>
                             </div>
                         </form>
                     </div>

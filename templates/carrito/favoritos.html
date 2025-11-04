@@ -1,9 +1,10 @@
 {% extends "tienda/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
 <div class="container mt-5 pt-5">
-    <h2 class="mb-4 text-center">Mi Lista de Favoritos</h2>
+    <h2 class="mb-4 text-center">{% trans "Mi Lista de Favoritos" %}</h2>
 
     {% if productos %}
         <div class="row g-4">
@@ -20,10 +21,9 @@
                         <p class="card-text categoria">{{ producto.clasificacion }}</p>
                         <p class="precio">${{ producto.precio|floatformat:2 }}</p>
                         <div class="mt-auto">
-                            <a href="{% url 'mover_favorito_a_carrito' producto.id %}" class="btn btn-primary w-100 mb-2">Mover al Carrito</a>
+                            <a href="{% url 'mover_favorito_a_carrito' producto.id %}" class="btn btn-primary w-100 mb-2">{% trans "Mover al Carrito" %}</a>
                             <a href="{% url 'eliminar_favorito' producto.id %}" class="btn btn-outline-danger w-100">
-                                <i class="bi bi-trash"></i> Quitar
-                            </a>
+                                <i class="bi bi-trash"></i>{% trans "Quitar" %}</a>
                         </div>
                     </div>
                 </div>
@@ -33,9 +33,9 @@
     {% else %}
         <div class="text-center py-5">
             <i class="bi bi-heart" style="font-size: 4rem; color: #ccc;"></i>
-            <h3 class="mt-3">Tu lista de favoritos está vacía</h3>
-            <p class="text-muted">Añade productos que te gusten para verlos aquí.</p>
-            <a href="{% url 'listar_productos' %}" class="btn btn-primary mt-3">Descubrir Productos</a>
+            <h3 class="mt-3">{% trans "Tu lista de favoritos está vacía" %}</h3>
+            <p class="text-muted">{% trans "Añade productos que te gusten para verlos aquí." %}</p>
+            <a href="{% url 'listar_productos' %}" class="btn btn-primary mt-3">{% trans "Descubrir Productos" %}</a>
         </div>
     {% endif %}
 </div>

@@ -1,8 +1,9 @@
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
-    <title>Paw&Whiskers</title>
+    <title>{% trans "Paw&Whiskers" %}</title>
     {% load static %}
 
     <!-- Bootstrap CSS -->
@@ -22,86 +23,45 @@
 </head>
 <body>
     <!-- Navbar -->
-        <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top shadow-sm">
-            <div class="container">
-                <!-- Logo -->
-                <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-                    <img src="{% static 'tienda/logon.png' %}" alt="Logo" width="50" height="50" class="logo-img me-2">
-                    <span class="brand-text">Paw&Whiskers</span>
-                </a>
+    <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top shadow-sm">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                <img src="{% static 'tienda/logon.png' %}" alt="Logo" width="50" height="50" class="logo-img me-2">
+                <span class="brand-text">{% trans "Paw&Whiskers" %}</span>
+            </a>
 
-                <!-- Botón hamburguesa -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <!-- Botón hamburguesa -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <!-- Menú desktop -->
-                <div class="collapse navbar-collapse justify-content-end d-none d-lg-flex">
-                    <ul class="navbar-nav align-items-center">
-                        {% if user.is_authenticated %}
-                            {% if user.is_superuser %}
-                                <!-- Admin -->
-                                <li class="nav-item">
-                                    <a href="{% url 'lista_productos' %}" class="btn btn-warning ms-3">Gestión</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'reporte_pedidos' %}" class="btn btn-info ms-3">Reportes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'ver_historial' %}" class="btn btn-secondary ms-3">Historial</a>
-                                </li>
-                            {% else %}
-                                <!-- Usuario normal -->
-                                <li class="nav-item">
-                                    <a href="{% url 'chatbot_page' %}" class="nav-link">Chat</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'listar_productos' %}" class="nav-link">Productos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'ver_favoritos' %}" class="nav-link">Favoritos</a>
-                                </li>
-                                <li class="nav-item position-relative ms-3">
-                                    <a href="{% url 'ver_carrito' %}" class="btn btn-outline-light">
-                                        <i class="bi bi-cart-fill"></i>
-                                        {% if carrito_context and carrito_context.carritoitem_set.count > 0 %}
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            {{ carrito_context.carritoitem_set.count }}
-                                        </span>
-                                        {% endif %}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'realizar_pedido' %}" class="btn btn-success ms-3">Mis pedidos</a>
-                                </li>
-                            {% endif %}
+            <!-- Menú desktop -->
+            <div class="collapse navbar-collapse justify-content-end d-none d-lg-flex">
+                <ul class="navbar-nav align-items-center">
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
                             <li class="nav-item">
-                                <a href="{% url 'logout' %}" class="btn btn-danger ms-3">Salir</a>
+                                <a href="{% url 'lista_productos' %}" class="btn btn-warning ms-3">{% trans "Gestión" %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'reporte_pedidos' %}" class="btn btn-info ms-3">{% trans "Reportes" %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'ver_historial' %}" class="btn btn-secondary ms-3">{% trans "Historial" %}</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a href="{% url 'login' %}" class="btn btn-outline-light ms-3">Login</a>
+                                <a href="{% url 'chatbot_page' %}" class="nav-link">{% trans "Chat" %}</a>
                             </li>
-                        {% endif %}
-                    </ul>
-                </div>
-
-                <!-- Offcanvas para móvil -->
-                <div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="offcanvasMenu">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title">Menú</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        {% if user.is_authenticated %}
-                            {% if user.is_superuser %}
-                                <a href="{% url 'lista_productos' %}" class="btn btn-warning w-100 mb-2">Gestión Productos</a>
-                                <a href="{% url 'reporte_pedidos' %}" class="btn btn-info w-100 mb-2">Reporte Pedidos</a>
-                                <a href="{% url 'ver_historial' %}" class="btn btn-secondary w-100 mb-2">Historial Actividad</a>
-                            {% else %}
-                                <a href="{% url 'listar_productos' %}" class="nav-link mb-2">Productos</a>
-                                <a href="{% url 'ver_favoritos' %}" class="nav-link mb-2">Favoritos</a>
-                                <a href="{% url 'ver_carrito' %}" class="btn btn-outline-light position-relative w-100 mb-2">
+                            <li class="nav-item">
+                                <a href="{% url 'listar_productos' %}" class="nav-link">{% trans "Productos" %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'ver_favoritos' %}" class="nav-link">{% trans "Favoritos" %}</a>
+                            </li>
+                            <li class="nav-item position-relative ms-3">
+                                <a href="{% url 'ver_carrito' %}" class="btn btn-outline-light">
                                     <i class="bi bi-cart-fill"></i>
                                     {% if carrito_context and carrito_context.carritoitem_set.count > 0 %}
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -109,17 +69,49 @@
                                     </span>
                                     {% endif %}
                                 </a>
-                                <a href="{% url 'realizar_pedido' %}" class="btn btn-success w-100 mb-2">Mis pedidos</a>
-                            {% endif %}
-                            <a href="{% url 'logout' %}" class="btn btn-danger w-100">Salir</a>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-outline-light w-100">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'realizar_pedido' %}" class="btn btn-success ms-3">{% trans "Mis pedidos" %}</a>
+                            </li>
                         {% endif %}
-                    </div>
-                </div>
-            </div>
-        </nav>
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}" class="btn btn-danger ms-3">{% trans "Salir" %}</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'login' %}" class="btn btn-outline-light ms-3">{% trans "Login" %}</a>
+                        </li>
+                    {% endif %}
 
+                    <!-- 🌐 Selector de idioma -->
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            🌐 {% get_current_language as LANGUAGE_CODE %}
+                            {% if LANGUAGE_CODE == 'es' %} Español {% else %} English {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <form action="{% url 'set_language' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="language" value="es">
+                                    <button type="submit" class="dropdown-item">{% trans "🇪🇸 Español" %}</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="{% url 'set_language' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <input type="hidden" name="language" value="en">
+                                    <button type="submit" class="dropdown-item">{% trans "🇬🇧 English" %}</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <!-- Contenido dinámico -->
     <main class="container pt-5 mt-5">
@@ -140,9 +132,7 @@
 
     <!-- Footer -->
     <footer class="py-3">
-        <p class="text-center mb-0">
-            © 2025 Paw&Whiskers - Samuel Deossa & Maria Antonia
-        </p>
+        <p class="text-center mb-0">{% trans "© 2025 Paw&Whiskers - Samuel Deossa & Maria Antonia" %}</p>
     </footer>
 
     <!-- Scripts -->
@@ -151,13 +141,11 @@
     <script>
         AOS.init();
 
-        // Ocultar navbar al hacer scroll hacia abajo
         let lastScrollTop = 0;
         const navbar = document.getElementById("mainNavbar");
 
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
             if (currentScroll > lastScrollTop) {
                 navbar.classList.add("hide");
             } else {

@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
@@ -10,4 +11,3 @@ def crear_perfiles(sender, instance, created, **kwargs):
             Administrador.objects.create(user=instance)
         else:
             CuentaCliente.objects.create(user=instance)
-

@@ -1,33 +1,33 @@
 {% extends "tienda/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
-        <h2 class="auth-title">Crear cuenta</h2>
+        <h2 class="auth-title">{% trans "Crear cuenta" %}</h2>
         <form method="POST">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="username">Usuario</label>
+                <label for="username">{% trans "Usuario" %}</label>
                 <input type="text" name="username" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="email">Correo electrónico</label>
+                <label for="email">{% trans "Correo electrónico" %}</label>
                 <input type="email" name="email" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="password1">Contraseña</label>
+                <label for="password1">{% trans "Contraseña" %}</label>
                 <input type="password" name="password1" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="password2">Confirmar contraseña</label>
+                <label for="password2">{% trans "Confirmar contraseña" %}</label>
                 <input type="password" name="password2" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-success w-100">Registrarme</button>
+            <button type="submit" class="btn btn-success w-100">{% trans "Registrarme" %}</button>
         </form>
 
-        <p class="mt-3 text-center">
-            ¿Ya tienes cuenta? <a href="{% url 'login' %}" class="text-primary fw-bold">Inicia sesión</a>
+        <p class="mt-3 text-center">{% trans "¿Ya tienes cuenta?" %}<a href="{% url 'login' %}" class="text-primary fw-bold">{% trans "Inicia sesión" %}</a>
         </p>
     </div>
 </div>

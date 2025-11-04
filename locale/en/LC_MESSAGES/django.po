@@ -1,0 +1,1252 @@
+# English translations for Paw&Whiskers
+# Copyright (C) 2025 Paw&Whiskers
+# This file is distributed under the same license as the project package.
+# Samuel Deossa, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Paw&Whiskers 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-03 19:44-0500\n"
+"PO-Revision-Date: 2025-11-03 19:40-0500\n"
+"Last-Translator: Samuel Deossa\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\carrito\apps.py:7
+#, fuzzy
+#| msgid "Mi Carrito de Compras"
+msgid "Carrito de Compras"
+msgstr "My Shopping Cart"
+
+#: .\carrito\migrations\0001_initial.py:13
+#: .\chatbot\migrations\0001_initial.py:13 .\clientes\apps.py:6
+#: .\clientes\migrations\0002_registroactividad.py:12
+#: .\pedidos\migrations\0001_initial.py:13
+#, fuzzy
+#| msgid "Cliente"
+msgid "clientes"
+msgstr "Customer"
+
+#: .\carrito\migrations\0001_initial.py:13
+#: .\carrito\migrations\0001_initial.py:14
+#: .\carrito\migrations\0002_remove_carrito_totalcarrito_and_more.py:10
+#: .\chatbot\migrations\0001_initial.py:13
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:12
+#: .\clientes\migrations\0002_registroactividad.py:12
+#: .\pedidos\migrations\0001_initial.py:13
+#: .\pedidos\migrations\0002_pedido_estado.py:10
+#: .\productos\migrations\0002_producto_activo.py:10
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:10
+msgid "0001_initial"
+msgstr ""
+
+#: .\carrito\migrations\0001_initial.py:14
+#: .\carrito\migrations\0001_initial.py:37
+#: .\carrito\migrations\0001_initial.py:45 .\chatbot\views.py:31
+#: .\productos\migrations\0002_producto_activo.py:10 .\productos\views.py:41
+#: .\tienda\migrations\0001_initial.py:79
+#: .\tienda\migrations\0001_initial.py:93
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:20
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:44
+#, fuzzy
+#| msgid "Productos"
+msgid "productos"
+msgstr "Products"
+
+#: .\carrito\migrations\0001_initial.py:19
+#: .\tienda\migrations\0001_initial.py:48
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:54
+#, fuzzy
+#| msgid "🛒 Al Carrito"
+msgid "Carrito"
+msgstr "🛒 Add to Cart"
+
+#: .\carrito\migrations\0001_initial.py:21
+#: .\carrito\migrations\0001_initial.py:29
+#: .\carrito\migrations\0001_initial.py:43
+#: .\chatbot\migrations\0001_initial.py:20
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:20
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:30
+#: .\clientes\migrations\0001_initial.py:21
+#: .\clientes\migrations\0001_initial.py:29
+#: .\clientes\migrations\0002_registroactividad.py:20
+#: .\pedidos\migrations\0001_initial.py:20
+#: .\pedidos\migrations\0001_initial.py:30
+#: .\productos\migrations\0001_initial.py:18
+#: .\tienda\migrations\0001_initial.py:21
+#: .\tienda\migrations\0001_initial.py:33
+#: .\tienda\migrations\0001_initial.py:41
+#: .\tienda\migrations\0001_initial.py:50
+#: .\tienda\migrations\0001_initial.py:58
+#: .\tienda\migrations\0001_initial.py:68
+#: .\tienda\migrations\0001_initial.py:77
+#: .\tienda\migrations\0001_initial.py:85
+msgid "id"
+msgstr ""
+
+#: .\carrito\migrations\0001_initial.py:21
+#: .\carrito\migrations\0001_initial.py:29
+#: .\carrito\migrations\0001_initial.py:43
+#: .\chatbot\migrations\0001_initial.py:20
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:20
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:30
+#: .\clientes\migrations\0001_initial.py:21
+#: .\clientes\migrations\0001_initial.py:29
+#: .\clientes\migrations\0002_registroactividad.py:20
+#: .\pedidos\migrations\0001_initial.py:20
+#: .\pedidos\migrations\0001_initial.py:30
+#: .\productos\migrations\0001_initial.py:18
+#: .\tienda\migrations\0001_initial.py:21
+#: .\tienda\migrations\0001_initial.py:33
+#: .\tienda\migrations\0001_initial.py:41
+#: .\tienda\migrations\0001_initial.py:50
+#: .\tienda\migrations\0001_initial.py:58
+#: .\tienda\migrations\0001_initial.py:68
+#: .\tienda\migrations\0001_initial.py:77
+#: .\tienda\migrations\0001_initial.py:85
+msgid "ID"
+msgstr ""
+
+#: .\carrito\migrations\0001_initial.py:22
+#: .\carrito\migrations\0002_remove_carrito_totalcarrito_and_more.py:16
+#: .\tienda\migrations\0001_initial.py:51
+#, fuzzy
+#| msgid "Total del Carrito"
+msgid "totalCarrito"
+msgstr "Cart Total"
+
+#: .\carrito\migrations\0001_initial.py:23
+#: .\carrito\migrations\0001_initial.py:44
+#: .\chatbot\migrations\0001_initial.py:24
+#: .\pedidos\migrations\0001_initial.py:24
+#: .\tienda\migrations\0001_initial.py:52
+#: .\tienda\migrations\0001_initial.py:62
+#: .\tienda\migrations\0001_initial.py:78
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:16
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:36
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:40
+#, fuzzy
+#| msgid "Cliente"
+msgid "cliente"
+msgstr "Customer"
+
+#: .\carrito\migrations\0001_initial.py:23
+#: .\carrito\migrations\0001_initial.py:44
+#: .\chatbot\migrations\0001_initial.py:24
+#: .\pedidos\migrations\0001_initial.py:24
+msgid "clientes.cuentacliente"
+msgstr ""
+
+#: .\carrito\migrations\0001_initial.py:27
+#: .\tienda\migrations\0001_initial.py:83
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:57
+msgid "CarritoItem"
+msgstr ""
+
+#: .\carrito\migrations\0001_initial.py:30
+#: .\carrito\migrations\0002_remove_carrito_totalcarrito_and_more.py:20
+#: .\pedidos\migrations\0001_initial.py:31
+#: .\tienda\migrations\0001_initial.py:69
+#: .\tienda\migrations\0001_initial.py:86
+#, fuzzy
+#| msgid "Cantidad"
+msgid "cantidad"
+msgstr "Quantity"
+
+#: .\carrito\migrations\0001_initial.py:31
+#: .\carrito\migrations\0001_initial.py:36
+#: .\carrito\migrations\0002_remove_carrito_totalcarrito_and_more.py:10
+#: .\carrito\migrations\0002_remove_carrito_totalcarrito_and_more.py:15
+#: .\pedidos\views.py:67 .\tienda\migrations\0001_initial.py:87
+#: .\tienda\migrations\0001_initial.py:92
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:15
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:19
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:24
+#, fuzzy
+#| msgid "Favoritos"
+msgid "carrito"
+msgstr "Favorites"
+
+#: .\carrito\migrations\0001_initial.py:31
+msgid "carrito.carrito"
+msgstr ""
+
+#: .\carrito\migrations\0001_initial.py:32
+#: .\productos\migrations\0002_producto_activo.py:15
+#: .\tienda\migrations\0001_initial.py:88
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:28
+#, fuzzy
+#| msgid "Producto"
+msgid "producto"
+msgstr "Product"
+
+#: .\carrito\migrations\0001_initial.py:32
+#: .\carrito\migrations\0001_initial.py:38
+#: .\carrito\migrations\0001_initial.py:45
+#, fuzzy
+#| msgid "Nuestros Productos"
+msgid "productos.producto"
+msgstr "Our Products"
+
+#: .\carrito\migrations\0001_initial.py:38
+msgid "carrito.CarritoItem"
+msgstr ""
+
+#: .\carrito\migrations\0001_initial.py:41
+#: .\tienda\migrations\0001_initial.py:75
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:63
+#, fuzzy
+#| msgid "Favoritos"
+msgid "Favorito"
+msgstr "Favorites"
+
+#: .\carrito\migrations\0002_remove_carrito_totalcarrito_and_more.py:19
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:23
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:27
+msgid "carritoitem"
+msgstr ""
+
+#: .\carrito\views.py:38 .\clientes\migrations\0002_registroactividad.py:21
+msgid "CARRITO"
+msgstr ""
+
+#: .\carrito\views.py:39
+#, python-format
+msgid "Añadió %(producto)s al carrito"
+msgstr ""
+
+#: .\carrito\views.py:91 .\clientes\migrations\0002_registroactividad.py:21
+msgid "FAVORITO"
+msgstr ""
+
+#: .\carrito\views.py:92
+#, fuzzy, python-format
+#| msgid "Añade productos para verlos aquí."
+msgid "Añadió %(producto)s a favoritos"
+msgstr "Add some products to see them here."
+
+#: .\chatbot\apps.py:7
+#, fuzzy
+#| msgid "Chat"
+msgid "Chatbot"
+msgstr "Chat"
+
+#: .\chatbot\llm.py:13
+msgid "GROQ_API_KEY"
+msgstr ""
+
+#: .\chatbot\llm.py:14
+msgid "GROQ_MODEL"
+msgstr ""
+
+#: .\chatbot\llm.py:14
+msgid "llama-3.1-8b-instant"
+msgstr ""
+
+#: .\chatbot\migrations\0001_initial.py:18
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:42
+msgid "ChatbotLog"
+msgstr ""
+
+#: .\chatbot\migrations\0001_initial.py:21
+msgid "pregunta"
+msgstr ""
+
+#: .\chatbot\migrations\0001_initial.py:22
+msgid "respuesta"
+msgstr ""
+
+#: .\chatbot\migrations\0001_initial.py:23
+#: .\clientes\migrations\0002_registroactividad.py:23
+#, fuzzy
+#| msgid "Fecha"
+msgid "fecha"
+msgstr "Date"
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:12
+msgid "chatbot"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:18
+msgid "Conversation"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:21
+msgid "title"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:22
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:34
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:38
+msgid "created_at"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:23
+msgid "updated_at"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:24
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:31
+#: .\chatbot\views.py:49 .\clientes\migrations\0001_initial.py:23
+#: .\clientes\migrations\0001_initial.py:32
+#: .\tienda\migrations\0001_initial.py:35
+#: .\tienda\migrations\0001_initial.py:44
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:32
+msgid "user"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:24
+msgid "conversations"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:28
+msgid "Message"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:31
+#: .\chatbot\views.py:37 .\chatbot\views.py:49
+msgid "role"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:31
+#: .\chatbot\views.py:37
+msgid "system"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:31
+msgid "assistant"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:32
+#: .\chatbot\views.py:38 .\chatbot\views.py:49
+msgid "content"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:33
+msgid "meta"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:35
+msgid "conversation"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:35
+msgid "messages"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:35
+msgid "chatbot.conversation"
+msgstr ""
+
+#: .\chatbot\migrations\0002_conversation_message_delete_chatbotlog.py:38
+#: .\clientes\migrations\0002_registroactividad.py:29
+msgid "ordering"
+msgstr ""
+
+#: .\chatbot\services.py:13 .\productos\forms.py:8 .\productos\forms.py:12
+#: .\productos\migrations\0001_initial.py:19 .\productos\views.py:69
+#: .\tienda\migrations\0001_initial.py:22
+#, fuzzy
+#| msgid "Nombre"
+msgid "nombre"
+msgstr "Name"
+
+#: .\chatbot\services.py:14 .\productos\forms.py:8
+#: .\productos\migrations\0001_initial.py:21 .\productos\views.py:71
+#: .\tienda\migrations\0001_initial.py:24
+#, fuzzy
+#| msgid "Clasificación"
+msgid "clasificacion"
+msgstr "Category"
+
+#: .\chatbot\services.py:15 .\productos\forms.py:8
+#: .\productos\migrations\0001_initial.py:22 .\productos\views.py:72
+#: .\tienda\migrations\0001_initial.py:25
+#, fuzzy
+#| msgid "Precio"
+msgid "precio"
+msgstr "Price"
+
+#: .\chatbot\services.py:16 .\productos\forms.py:8
+#: .\productos\migrations\0001_initial.py:24 .\productos\views.py:73
+#: .\tienda\migrations\0001_initial.py:27
+#, fuzzy
+#| msgid "Cantidad"
+msgid "cantidadDisp"
+msgstr "Quantity"
+
+#: .\chatbot\views.py:14
+msgid "API que responde usando LLM y productos reales"
+msgstr ""
+
+#: .\chatbot\views.py:15 .\clientes\views.py:14 .\clientes\views.py:30
+#: .\pedidos\views.py:36 .\productos\views.py:58 .\productos\views.py:93
+#: .\productos\views.py:108 .\productos\views.py:123 .\productos\views.py:132
+msgid "POST"
+msgstr ""
+
+#: .\chatbot\views.py:23
+msgid "message"
+msgstr ""
+
+#: .\chatbot\views.py:29
+msgid "\n"
+msgstr ""
+
+#: .\chatbot\views.py:32
+msgid "No hay productos disponibles actualmente."
+msgstr ""
+
+#: .\chatbot\views.py:59
+msgid "Renderiza la página del chatbot"
+msgstr ""
+
+#: .\clientes\apps.py:5
+msgid "django.db.models.BigAutoField"
+msgstr ""
+
+#: .\clientes\migrations\0001_initial.py:19
+#: .\tienda\migrations\0001_initial.py:31
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:51
+msgid "Administrador"
+msgstr ""
+
+#: .\clientes\migrations\0001_initial.py:22
+#: .\tienda\migrations\0001_initial.py:34
+msgid "idAdministrador"
+msgstr ""
+
+#: .\clientes\migrations\0001_initial.py:27
+#: .\tienda\migrations\0001_initial.py:39
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:60
+#, fuzzy
+#| msgid "Cliente"
+msgid "CuentaCliente"
+msgstr "Customer"
+
+#: .\clientes\migrations\0001_initial.py:30
+#: .\pedidos\migrations\0001_initial.py:23
+#: .\tienda\migrations\0001_initial.py:42
+#: .\tienda\migrations\0001_initial.py:61
+msgid "direccionPedido"
+msgstr ""
+
+#: .\clientes\migrations\0001_initial.py:31
+#: .\pedidos\migrations\0001_initial.py:32
+#: .\tienda\migrations\0001_initial.py:43
+#: .\tienda\migrations\0001_initial.py:70
+#, fuzzy
+#| msgid "Método de Pago:"
+msgid "metodoPago"
+msgstr "Payment Method:"
+
+#: .\clientes\migrations\0002_registroactividad.py:18
+#, fuzzy
+#| msgid "Historial de Actividad"
+msgid "RegistroActividad"
+msgstr "Activity History"
+
+#: .\clientes\migrations\0002_registroactividad.py:21 .\clientes\views.py:58
+#, fuzzy
+#| msgid "Tipo de Actividad"
+msgid "tipo_actividad"
+msgstr "Activity Type"
+
+#: .\clientes\migrations\0002_registroactividad.py:21
+msgid "Añadió al carrito"
+msgstr ""
+
+#: .\clientes\migrations\0002_registroactividad.py:21
+msgid "Añadió a favoritos"
+msgstr ""
+
+#: .\clientes\migrations\0002_registroactividad.py:21 .\pedidos\views.py:52
+msgid "PEDIDO"
+msgstr ""
+
+#: .\clientes\migrations\0002_registroactividad.py:21
+msgid "Pedido realizado"
+msgstr ""
+
+#: .\clientes\migrations\0002_registroactividad.py:22
+#, fuzzy
+#| msgid "Detalles"
+msgid "detalles"
+msgstr "Details"
+
+#: .\clientes\migrations\0002_registroactividad.py:24
+#, fuzzy
+#| msgid "Usuario"
+msgid "usuario"
+msgstr "Username"
+
+#: .\clientes\migrations\0002_registroactividad.py:27
+msgid "verbose_name"
+msgstr ""
+
+#: .\clientes\migrations\0002_registroactividad.py:27
+#, fuzzy
+#| msgid "Historial de Actividad"
+msgid "Registro de Actividad"
+msgstr "Activity History"
+
+#: .\clientes\migrations\0002_registroactividad.py:28
+msgid "verbose_name_plural"
+msgstr ""
+
+#: .\clientes\migrations\0002_registroactividad.py:28
+#, fuzzy
+#| msgid "Historial de Actividad"
+msgid "Registros de Actividad"
+msgstr "Activity History"
+
+#: .\clientes\migrations\0002_registroactividad.py:29
+#, fuzzy
+#| msgid "Fecha"
+msgid "-fecha"
+msgstr "Date"
+
+#: .\clientes\views.py:15 .\clientes\views.py:31 .\tienda\forms.py:11
+msgid "username"
+msgstr ""
+
+#: .\clientes\views.py:16
+msgid "password"
+msgstr ""
+
+#: .\clientes\views.py:22
+msgid "Usuario o contraseña incorrectos"
+msgstr ""
+
+#: .\clientes\views.py:32 .\tienda\forms.py:11
+msgid "email"
+msgstr ""
+
+#: .\clientes\views.py:33 .\tienda\forms.py:11
+msgid "password1"
+msgstr ""
+
+#: .\clientes\views.py:34 .\tienda\forms.py:11
+msgid "password2"
+msgstr ""
+
+#: .\clientes\views.py:37
+msgid "Las contraseñas no coinciden"
+msgstr ""
+
+#: .\clientes\views.py:41
+msgid "El usuario ya existe"
+msgstr ""
+
+#: .\clientes\views.py:64 .\productos\views.py:34
+msgid "page"
+msgstr ""
+
+#: .\clientes\views.py:68
+#, fuzzy
+#| msgid "Cantidad"
+msgid "actividades"
+msgstr "Quantity"
+
+#: .\clientes\views.py:69
+#, fuzzy
+#| msgid "Tipo de Actividad"
+msgid "tipos_actividad"
+msgstr "Activity Type"
+
+#: .\clientes\views.py:70
+msgid "filtro_actual"
+msgstr ""
+
+#: .\pedidos\apps.py:7
+#, fuzzy
+#| msgid "ID Pedido"
+msgid "Pedidos"
+msgstr "Order ID"
+
+#: .\pedidos\migrations\0001_initial.py:18
+#: .\tienda\migrations\0001_initial.py:56
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:72
+#, fuzzy
+#| msgid "ID Pedido"
+msgid "Pedido"
+msgstr "Order ID"
+
+#: .\pedidos\migrations\0001_initial.py:21
+#: .\tienda\migrations\0001_initial.py:59
+#, fuzzy
+#| msgid "ID Pedido"
+msgid "fechaPedido"
+msgstr "Order ID"
+
+#: .\pedidos\migrations\0001_initial.py:22
+#: .\tienda\migrations\0001_initial.py:60
+#, fuzzy
+#| msgid "ID Pedido"
+msgid "totalPedido"
+msgstr "Order ID"
+
+#: .\pedidos\migrations\0001_initial.py:28
+#: .\tienda\migrations\0001_initial.py:66
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:69
+msgid "Pago"
+msgstr ""
+
+#: .\pedidos\migrations\0001_initial.py:33
+#: .\pedidos\migrations\0002_pedido_estado.py:15
+#: .\tienda\migrations\0001_initial.py:71
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:39
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:48
+#, fuzzy
+#| msgid "Mis pedidos"
+msgid "pedido"
+msgstr "My Orders"
+
+#: .\pedidos\migrations\0001_initial.py:33
+#: .\tienda\migrations\0001_initial.py:71
+msgid "pagos"
+msgstr ""
+
+#: .\pedidos\migrations\0001_initial.py:33
+#, fuzzy
+#| msgid "Mis pedidos"
+msgid "pedidos.pedido"
+msgstr "My Orders"
+
+#: .\pedidos\migrations\0002_pedido_estado.py:10
+#, fuzzy
+#| msgid "Mis pedidos"
+msgid "pedidos"
+msgstr "My Orders"
+
+#: .\pedidos\migrations\0002_pedido_estado.py:16
+#, fuzzy
+#| msgid "Estado"
+msgid "estado"
+msgstr "Status"
+
+#: .\pedidos\migrations\0002_pedido_estado.py:17
+#, fuzzy
+#| msgid "Cliente"
+msgid "Pendiente"
+msgstr "Customer"
+
+#: .\pedidos\migrations\0002_pedido_estado.py:17
+#, fuzzy
+#| msgid "Marcar como Finalizado"
+msgid "Finalizado"
+msgstr "Mark as Completed"
+
+#: .\pedidos\migrations\0002_pedido_estado.py:17
+#, fuzzy
+#| msgid "Cancelar"
+msgid "Cancelado"
+msgstr "Cancel"
+
+#: .\pedidos\views.py:27
+msgid "Tu carrito está vacío. Añade productos antes de realizar un pedido."
+msgstr ""
+
+#: .\pedidos\views.py:30
+msgid "GET"
+msgstr ""
+
+#: .\pedidos\views.py:63
+msgid "¡Simulación de pedido realizada con éxito!"
+msgstr ""
+
+#: .\pedidos\views.py:68
+msgid "items"
+msgstr ""
+
+#: .\pedidos\views.py:90
+msgid "text/csv"
+msgstr ""
+
+#: .\pedidos\views.py:91
+msgid "Content-Disposition"
+msgstr ""
+
+#: .\pedidos\views.py:94 .\templates\pedidos\reporte_pedidos.html:23
+msgid "ID Pedido"
+msgstr "Order ID"
+
+#: .\pedidos\views.py:94 .\templates\pedidos\reporte_pedidos.html:24
+msgid "Cliente"
+msgstr "Customer"
+
+#: .\pedidos\views.py:94
+#, fuzzy
+#| msgid "Cliente"
+msgid "Email Cliente"
+msgstr "Customer"
+
+#: .\pedidos\views.py:94 .\templates\pedidos\reporte_pedidos.html:25
+msgid "Fecha"
+msgstr "Date"
+
+#: .\pedidos\views.py:94 .\templates\carrito\carrito.html:64
+#: .\templates\pedidos\reporte_pedidos.html:26
+msgid "Total"
+msgstr "Total"
+
+#: .\pedidos\views.py:94 .\templates\pedidos\reporte_pedidos.html:27
+msgid "Estado"
+msgstr "Status"
+
+#: .\pedidos\views.py:94
+#, fuzzy
+#| msgid "Dirección:"
+msgid "Dirección"
+msgstr "Address:"
+
+#: .\productos\apps.py:7 .\templates\tienda\base.html:58
+msgid "Productos"
+msgstr "Products"
+
+#: .\productos\forms.py:8 .\productos\migrations\0001_initial.py:20
+#: .\productos\views.py:70 .\tienda\migrations\0001_initial.py:23
+#, fuzzy
+#| msgid "Descripción"
+msgid "descripcion"
+msgstr "Description"
+
+#: .\productos\forms.py:8 .\productos\migrations\0001_initial.py:23
+#: .\productos\views.py:75 .\productos\views.py:76
+#: .\tienda\migrations\0001_initial.py:26
+msgid "imagen"
+msgstr ""
+
+#: .\productos\forms.py:14
+msgid "Ya existe un producto con este nombre."
+msgstr ""
+
+#: .\productos\migrations\0001_initial.py:16
+#: .\templates\carrito\carrito.html:14 .\tienda\migrations\0001_initial.py:19
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:66
+msgid "Producto"
+msgstr "Product"
+
+#: .\productos\migrations\0001_initial.py:23
+#: .\tienda\migrations\0001_initial.py:26
+#, fuzzy
+#| msgid "Productos"
+msgid "productos/"
+msgstr "Products"
+
+#: .\productos\migrations\0002_producto_activo.py:16
+#, fuzzy
+#| msgid "Activo"
+msgid "activo"
+msgstr "Active"
+
+#: .\productos\views.py:15
+msgid "q"
+msgstr ""
+
+#: .\productos\views.py:16
+#, fuzzy
+#| msgid "Categoría"
+msgid "categoria"
+msgstr "Category"
+
+#: .\productos\views.py:17
+#, fuzzy
+#| msgid "Precio"
+msgid "precio_min"
+msgstr "Price"
+
+#: .\productos\views.py:18
+#, fuzzy
+#| msgid "Precio"
+msgid "precio_max"
+msgstr "Price"
+
+#: .\productos\views.py:39
+msgid "productos/productos.html"
+msgstr ""
+
+#: .\productos\views.py:55
+#, fuzzy
+#| msgid "No tienes permisos para ver esta página."
+msgid "No tienes permisos para subir productos."
+msgstr "You don't have permission to view this page."
+
+#: .\productos\views.py:58 .\productos\views.py:59
+msgid "archivo_excel"
+msgstr ""
+
+#: .\productos\views.py:79
+msgid "Productos agregados exitosamente desde Excel."
+msgstr ""
+
+#: .\productos\views.py:97
+msgid "Producto creado con éxito ✅"
+msgstr ""
+
+#: .\productos\views.py:112
+msgid "Producto actualizado con éxito ✏️"
+msgstr ""
+
+#: .\productos\views.py:126
+msgid "Producto eliminado (oculto al cliente) 🗑️"
+msgstr ""
+
+#: .\productos\views.py:135
+msgid "El stock de todos los productos ha sido restablecido a 20."
+msgstr ""
+
+#: .\templates\carrito\carrito.html:7
+msgid "Mi Carrito de Compras"
+msgstr "My Shopping Cart"
+
+#: .\templates\carrito\carrito.html:15
+msgid "Cantidad"
+msgstr "Quantity"
+
+#: .\templates\carrito\carrito.html:16
+msgid "Precio Unitario"
+msgstr "Unit Price"
+
+#: .\templates\carrito\carrito.html:17 .\templates\carrito\carrito.html:58
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#: .\templates\carrito\carrito.html:18
+#: .\templates\pedidos\reporte_pedidos.html:28
+msgid "Acciones"
+msgstr "Actions"
+
+#: .\templates\carrito\carrito.html:44 .\templates\carrito\favoritos.html:26
+msgid "Quitar"
+msgstr "Remove"
+
+#: .\templates\carrito\carrito.html:56
+msgid "Total del Carrito"
+msgstr "Cart Total"
+
+#: .\templates\carrito\carrito.html:68
+msgid "Proceder al Pago"
+msgstr "Proceed to Checkout"
+
+#: .\templates\carrito\carrito.html:78
+msgid "Tu carrito está vacío"
+msgstr "Your cart is empty"
+
+#: .\templates\carrito\carrito.html:79
+msgid "Añade productos para verlos aquí."
+msgstr "Add some products to see them here."
+
+#: .\templates\carrito\carrito.html:80
+msgid "Ver Productos"
+msgstr "View Products"
+
+#: .\templates\carrito\favoritos.html:7
+msgid "Mi Lista de Favoritos"
+msgstr "My Wishlist"
+
+#: .\templates\carrito\favoritos.html:24
+msgid "Mover al Carrito"
+msgstr "Move to Cart"
+
+#: .\templates\carrito\favoritos.html:36
+msgid "Tu lista de favoritos está vacía"
+msgstr "Your wishlist is empty"
+
+#: .\templates\carrito\favoritos.html:37
+msgid "Añade productos que te gusten para verlos aquí."
+msgstr "Add products you like to see them here."
+
+#: .\templates\carrito\favoritos.html:38
+msgid "Descubrir Productos"
+msgstr "Discover Products"
+
+#: .\templates\chatbot\chatbot.html:6
+msgid "💬 Chat con PetShopBot"
+msgstr "💬 Chat with PetShopBot"
+
+#: .\templates\chatbot\chatbot.html:12
+msgid "Enviar"
+msgstr "Send"
+
+#: .\templates\chatbot\chatbot.html:50
+msgid "Error al enviar mensaje"
+msgstr "Error sending message"
+
+#: .\templates\clientes\historial.html:7
+msgid "Historial de Actividad"
+msgstr "Activity History"
+
+#: .\templates\clientes\historial.html:14
+msgid "Filtrar por tipo de actividad"
+msgstr "Filter by activity type"
+
+#: .\templates\clientes\historial.html:16
+#: .\templates\productos\productos.html:29
+msgid "Todas"
+msgstr "All"
+
+#: .\templates\clientes\historial.html:23
+msgid "Filtrar"
+msgstr "Filter"
+
+#: .\templates\clientes\historial.html:36 .\templates\clientes\login.html:25
+#: .\templates\clientes\register.html:12 .\tienda\forms.py:14
+msgid "Usuario"
+msgstr "Username"
+
+#: .\templates\clientes\historial.html:37
+msgid "Tipo de Actividad"
+msgstr "Activity Type"
+
+#: .\templates\clientes\historial.html:38
+msgid "Detalles"
+msgstr "Details"
+
+#: .\templates\clientes\historial.html:39
+msgid "Fecha y Hora"
+msgstr "Date and Time"
+
+#: .\templates\clientes\historial.html:52
+msgid "No hay registros de actividad."
+msgstr "No activity records found."
+
+#: .\templates\clientes\historial.html:95
+#: .\templates\pedidos\reporte_pedidos.html:75
+msgid "No tienes permisos para ver esta página."
+msgstr "You don't have permission to view this page."
+
+#: .\templates\clientes\login.html:8
+msgid "Iniciar sesión"
+msgstr "Login"
+
+#: .\templates\clientes\login.html:29 .\templates\clientes\register.html:20
+#: .\tienda\forms.py:15
+msgid "Contraseña"
+msgstr "Password"
+
+#: .\templates\clientes\login.html:32
+msgid "Ingresar"
+msgstr "Sign in"
+
+#: .\templates\clientes\login.html:35
+msgid "¿No tienes cuenta?"
+msgstr "Don’t have an account?"
+
+#: .\templates\clientes\login.html:35
+msgid "Regístrate aquí"
+msgstr "Register here"
+
+#: .\templates\clientes\register.html:8
+msgid "Crear cuenta"
+msgstr "Create Account"
+
+#: .\templates\clientes\register.html:16 .\tienda\forms.py:7
+msgid "Correo electrónico"
+msgstr "Email"
+
+#: .\templates\clientes\register.html:24
+msgid "Confirmar contraseña"
+msgstr "Confirm password"
+
+#: .\templates\clientes\register.html:27
+msgid "Registrarme"
+msgstr "Sign up"
+
+#: .\templates\clientes\register.html:30
+msgid "¿Ya tienes cuenta?"
+msgstr "Already have an account?"
+
+#: .\templates\clientes\register.html:30
+msgid "Inicia sesión"
+msgstr "Log in"
+
+#: .\templates\pedidos\pedido.html:10
+msgid "Confirmar Pedido (Simulación)"
+msgstr "Confirm Order (Simulation)"
+
+#: .\templates\pedidos\pedido.html:13
+msgid "Resumen de tu compra"
+msgstr "Your Purchase Summary"
+
+#: .\templates\pedidos\pedido.html:31
+msgid "Total (COP)"
+msgstr "Total (COP)"
+
+#: .\templates\pedidos\pedido.html:38
+msgid "Información de Envío"
+msgstr "Shipping Information"
+
+#: .\templates\pedidos\pedido.html:39
+msgid "Dirección:"
+msgstr "Address:"
+
+#: .\templates\pedidos\pedido.html:40
+msgid "Método de Pago:"
+msgstr "Payment Method:"
+
+#: .\templates\pedidos\pedido.html:41
+msgid "Esta es una simulación. No se realizará ningún cobro ni envío real."
+msgstr "This is a simulation. No actual charge or delivery will be made."
+
+#: .\templates\pedidos\pedido.html:48
+msgid "Confirmar Pedido"
+msgstr "Confirm Order"
+
+#: .\templates\pedidos\reporte_pedidos.html:9
+msgid "Reporte de Pedidos"
+msgstr "Orders Report"
+
+#: .\templates\pedidos\reporte_pedidos.html:13
+msgid "Exportar a CSV"
+msgstr "Export to CSV"
+
+#: .\templates\pedidos\reporte_pedidos.html:49
+msgid "Cambiar Estado"
+msgstr "Change Status"
+
+#: .\templates\pedidos\reporte_pedidos.html:52
+msgid "Marcar como Pendiente"
+msgstr "Mark as Pending"
+
+#: .\templates\pedidos\reporte_pedidos.html:55
+msgid "Marcar como Finalizado"
+msgstr "Mark as Completed"
+
+#: .\templates\pedidos\reporte_pedidos.html:58
+msgid "Marcar como Cancelado"
+msgstr "Mark as Canceled"
+
+#: .\templates\pedidos\reporte_pedidos.html:66
+msgid "No hay pedidos para mostrar."
+msgstr "No orders to display."
+
+#: .\templates\productos\crear_producto.html:10
+msgid "Guardar"
+msgstr "Save"
+
+#: .\templates\productos\crear_producto.html:11
+#: .\templates\productos\eliminar_producto.html:10
+#: .\templates\productos\productos.html:154
+#: .\templates\productos\productos.html:177
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: .\templates\productos\eliminar_producto.html:9
+#: .\templates\productos\productos.html:178
+msgid "Eliminar"
+msgstr "Delete"
+
+#: .\templates\productos\productos.html:6
+msgid "🐾 Productos Paw&Whiskers"
+msgstr "🐾 Paw&Whiskers Products"
+
+#: .\templates\productos\productos.html:10
+msgid "➕ Nuevo producto"
+msgstr "➕ New Product"
+
+#: .\templates\productos\productos.html:11
+msgid "📁 Subir desde Excel"
+msgstr "📁 Upload from Excel"
+
+#: .\templates\productos\productos.html:14
+msgid "🔄 Restablecer Stock"
+msgstr "🔄 Reset Stock"
+
+#: .\templates\productos\productos.html:23
+msgid "Buscar por nombre"
+msgstr "Search by name"
+
+#: .\templates\productos\productos.html:27
+msgid "Categoría"
+msgstr "Category"
+
+#: .\templates\productos\productos.html:38
+msgid "Precio mínimo"
+msgstr "Minimum Price"
+
+#: .\templates\productos\productos.html:42
+msgid "Precio máximo"
+msgstr "Maximum Price"
+
+#: .\templates\productos\productos.html:69
+msgid "Agotado"
+msgstr "Out of Stock"
+
+#: .\templates\productos\productos.html:71
+msgid "¡Pocas unidades!"
+msgstr "Few units left!"
+
+#: .\templates\productos\productos.html:76
+#: .\templates\productos\productos.html:83
+msgid "🛒 Al Carrito"
+msgstr "🛒 Add to Cart"
+
+#: .\templates\productos\productos.html:119
+msgid "Nombre"
+msgstr "Name"
+
+#: .\templates\productos\productos.html:123
+msgid "Descripción"
+msgstr "Description"
+
+#: .\templates\productos\productos.html:127
+msgid "Clasificación"
+msgstr "Category"
+
+#: .\templates\productos\productos.html:132
+msgid "Precio"
+msgstr "Price"
+
+#: .\templates\productos\productos.html:136
+msgid "Stock"
+msgstr "Stock"
+
+#: .\templates\productos\productos.html:141
+msgid "Imagen (opcional)"
+msgstr "Image (optional)"
+
+#: .\templates\productos\productos.html:150
+msgid "Activo"
+msgstr "Active"
+
+#: .\templates\productos\productos.html:155
+msgid "Guardar cambios"
+msgstr "Save changes"
+
+#: .\templates\productos\productos.html:169
+msgid "Eliminar producto"
+msgstr "Delete product"
+
+#: .\templates\productos\productos.html:173
+msgid "¿Estás seguro de que deseas eliminar"
+msgstr "Are you sure you want to delete"
+
+#: .\templates\productos\productos.html:174
+msgid "Este producto quedará inactivo y no será visible para clientes."
+msgstr "This product will be inactive and hidden from customers."
+
+#: .\templates\productos\subir_productos.html:6
+msgid "Subir productos desde Excel"
+msgstr "Upload products from Excel"
+
+#: .\templates\productos\subir_productos.html:10
+msgid "Subir Excel"
+msgstr "Upload Excel"
+
+#: .\templates\tienda\base.html:6 .\templates\tienda\base.html:31
+#: .\templates\tienda\home.html:18
+msgid "Paw&Whiskers"
+msgstr "Paw&Whiskers"
+
+#: .\templates\tienda\base.html:45
+msgid "Gestión"
+msgstr "Management"
+
+#: .\templates\tienda\base.html:48
+msgid "Reportes"
+msgstr "Reports"
+
+#: .\templates\tienda\base.html:51
+msgid "Historial"
+msgstr "History"
+
+#: .\templates\tienda\base.html:55
+msgid "Chat"
+msgstr "Chat"
+
+#: .\templates\tienda\base.html:61
+msgid "Favoritos"
+msgstr "Favorites"
+
+#: .\templates\tienda\base.html:74
+msgid "Mis pedidos"
+msgstr "My Orders"
+
+#: .\templates\tienda\base.html:78
+msgid "Salir"
+msgstr "Logout"
+
+#: .\templates\tienda\base.html:82
+msgid "Login"
+msgstr "Login"
+
+#: .\templates\tienda\base.html:98
+msgid "🇪🇸 Español"
+msgstr "🇪🇸 Spanish"
+
+#: .\templates\tienda\base.html:106
+msgid "🇬🇧 English"
+msgstr "🇬🇧 English"
+
+#: .\templates\tienda\base.html:135
+msgid "© 2025 Paw&Whiskers - Samuel Deossa & Maria Antonia"
+msgstr "© 2025 Paw&Whiskers - Samuel Deossa & Maria Antonia"
+
+#: .\templates\tienda\home.html:18
+msgid "Bienvenido a"
+msgstr "Welcome to"
+
+#: .\templates\tienda\home.html:19
+msgid "La mejor tienda para consentir a tus mascotas"
+msgstr "The best store to pamper your pets"
+
+#: .\templates\tienda\home.html:34
+msgid "Nuestros Productos"
+msgstr "Our Products"
+
+#: .\templates\tienda\home.html:45
+msgid "Ver más"
+msgstr "See more"
+
+#: .\tienda\migrations\0001_initial.py:52
+#: .\tienda\migrations\0001_initial.py:62
+#: .\tienda\migrations\0001_initial.py:78
+msgid "tienda.cuentacliente"
+msgstr ""
+
+#: .\tienda\migrations\0001_initial.py:71
+msgid "tienda.pedido"
+msgstr ""
+
+#: .\tienda\migrations\0001_initial.py:79
+#: .\tienda\migrations\0001_initial.py:88
+#: .\tienda\migrations\0001_initial.py:94
+#, fuzzy
+#| msgid "Eliminar producto"
+msgid "tienda.producto"
+msgstr "Delete product"
+
+#: .\tienda\migrations\0001_initial.py:87
+msgid "tienda.carrito"
+msgstr ""
+
+#: .\tienda\migrations\0001_initial.py:94
+msgid "tienda.CarritoItem"
+msgstr ""
+
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:10
+msgid "tienda"
+msgstr ""
+
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:31
+#, fuzzy
+#| msgid "Cliente"
+msgid "cuentacliente"
+msgstr "Customer"
+
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:35
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:43
+#, fuzzy
+#| msgid "Favoritos"
+msgid "favorito"
+msgstr "Favorites"
+
+#: .\tienda\migrations\0002_remove_carrito_cliente_remove_carrito_productos_and_more.py:47
+msgid "pago"
+msgstr ""

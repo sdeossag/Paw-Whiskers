@@ -1,13 +1,15 @@
 {% extends "tienda/base.html" %}
+{% load i18n %}
+
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center mb-4">💬 Chat con PetShopBot</h2>
+    <h2 class="text-center mb-4">{% trans "💬 Chat con PetShopBot" %}</h2>
     <div id="chat-box" class="border rounded p-3 mb-3" style="height:400px; overflow-y:auto; background:#f9f9f9;">
         <!-- Mensajes se agregan aquí -->
     </div>
     <form id="chat-form" class="d-flex">
         <input type="text" id="message-input" class="form-control me-2" placeholder="Escribe un mensaje..." required>
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="btn btn-primary">{% trans "Enviar" %}</button>
     </form>
 </div>
 
@@ -45,7 +47,7 @@ document.getElementById("chat-form").addEventListener("submit", async function(e
 
     } catch (err) {
         console.error("Error enviando mensaje:", err);
-        chatBox.innerHTML += `<div class="text-start"><span class="badge bg-danger">Error al enviar mensaje</span></div>`;
+        chatBox.innerHTML += `<div class="text-start"><span class="badge bg-danger">{% trans "Error al enviar mensaje" %}</span></div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 });

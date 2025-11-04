@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 from django.shortcuts import render
 from productos.models import Producto  
 

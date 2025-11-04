@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
@@ -23,16 +24,16 @@ def realizar_pedido(request):
         return redirect('ver_carrito')
 
     if not items.exists():
-        messages.info(request, "Tu carrito está vacío. Añade productos antes de realizar un pedido.")
+        messages.info(request, _("Tu carrito está vacío. Añade productos antes de realizar un pedido."))
         return redirect('ver_carrito')
 
-    if request.method == 'GET':
+    if request.method == _("GET"):
         for item in items:
             if item.cantidad > item.producto.cantidadDisp:
                 messages.error(request, f"Stock insuficiente para '{item.producto.nombre}'. Disponible: {item.producto.cantidadDisp}, en carrito: {item.cantidad}.")
                 return redirect('ver_carrito')
 
-    if request.method == "POST":
+    if request.method == _("POST"):
         for item in items:
             if item.cantidad > item.producto.cantidadDisp:
                 messages.error(request, f"Mientras confirmabas, el stock para '{item.producto.nombre}' cambió. No se pudo completar el pedido.")
@@ -48,7 +49,7 @@ def realizar_pedido(request):
         if not request.user.is_superuser:
             RegistroActividad.objects.create(
                 usuario=request.user,
-                tipo_actividad='PEDIDO',
+                tipo_actividad=_("PEDIDO"),
                 detalles=f'Realizó el pedido #{pedido.id} por un total de ${pedido.totalPedido}'
             )
         
@@ -59,12 +60,12 @@ def realizar_pedido(request):
         
         carrito.carritoitem_set.all().delete()
         
-        messages.success(request, "¡Simulación de pedido realizada con éxito!")
+        messages.success(request, _("¡Simulación de pedido realizada con éxito!"))
         return redirect("home")
 
     context = {
-        'carrito': carrito,
-        'items': items
+        _("carrito"): carrito,
+        _("items"): items
     }
     return render(request, "pedidos/pedido.html", context)
 
@@ -86,11 +87,11 @@ def cambiar_estado_pedido(request, pedido_id, nuevo_estado):
 
 @admin_required
 def exportar_pedidos_csv(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="reporte_pedidos.csv"'
+    response = HttpResponse(content_type=_("text/csv"))
+    response[_("Content-Disposition")] = 'attachment; filename="reporte_pedidos.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['ID Pedido', 'Cliente', 'Email Cliente', 'Fecha', 'Total', 'Estado', 'Dirección'])
+    writer.writerow([_("ID Pedido"), _("Cliente"), _("Email Cliente"), _("Fecha"), _("Total"), _("Estado"), _("Dirección")])
 
     pedidos = Pedido.objects.all().order_by('-fechaPedido')
     for pedido in pedidos:
@@ -105,4 +106,3 @@ def exportar_pedidos_csv(request):
         ])
 
     return response
-

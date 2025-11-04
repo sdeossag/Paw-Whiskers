@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 from .models import Carrito, CuentaCliente
 
 def carrito_context(request):
