@@ -7,7 +7,9 @@ from .models import Administrador, CuentaCliente
 @receiver(post_save, sender=User)
 def crear_perfiles(sender, instance, created, **kwargs):
     if created:
+        # Todos los usuarios obtienen una cuenta de cliente para poder usar la tienda
+        CuentaCliente.objects.create(user=instance)
+
+        # Los superusuarios obtienen ADEMÁS un perfil de administrador
         if instance.is_superuser:
             Administrador.objects.create(user=instance)
-        else:
-            CuentaCliente.objects.create(user=instance)

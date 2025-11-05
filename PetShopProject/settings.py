@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'carrito.context_processors.carrito_context',
+                'tienda.context_processors.clima_medellin',
             ],
         },
     },

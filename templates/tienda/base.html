@@ -39,6 +39,15 @@
             <!-- Menú desktop -->
             <div class="collapse navbar-collapse justify-content-end d-none d-lg-flex">
                 <ul class="navbar-nav align-items-center">
+                    {% if clima_medellin %}
+                        <li class="nav-item d-flex align-items-center me-3">
+                            <i class="bi bi-cloud-sun-fill text-white me-2"></i>
+                            <span class="text-white">{% trans "Medellín" %}: {{ clima_medellin.temperatura }}°C</span>
+                            {% if clima_medellin.codigo_clima == 0 or clima_medellin.codigo_clima == 1 %}
+                                <span class="text-white ms-3 fst-italic">- {% trans "Ideal para sacar a pasear a tu perro!" %}</span>
+                            {% endif %}
+                        </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                         {% if user.is_superuser %}
                             <li class="nav-item">

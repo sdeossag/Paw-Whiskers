@@ -5,8 +5,10 @@ from django.contrib import messages
 from .models import Pedido
 from clientes.models import CuentaCliente, RegistroActividad
 from carrito.models import Carrito
-import csv
 from django.http import HttpResponse
+
+# Inversión de Dependencias: Importamos las clases desde el nuevo módulo
+from .report_generators import ReporteExcelGenerator, ReportePDFGenerator
 
 
 # Decorador para vistas de administrador
@@ -41,8 +43,8 @@ def realizar_pedido(request):
 
         pedido = Pedido.objects.create(
             cliente=cliente,
-            totalPedido=carrito.total_carrito,
-            direccionPedido=cliente.direccionPedido
+            total=carrito.total_carrito, # Corregido de totalPedido a total
+            direccion_entrega=cliente.direccion # Corregido de direccionPedido a direccion_entrega
         )
 
         # Registrar actividad
@@ -50,7 +52,7 @@ def realizar_pedido(request):
             RegistroActividad.objects.create(
                 usuario=request.user,
                 tipo_actividad=_("PEDIDO"),
-                detalles=f'Realizó el pedido #{pedido.id} por un total de ${pedido.totalPedido}'
+                detalles=f'Realizó el pedido #{pedido.id} por un total de ${pedido.total}'
             )
         
         for item in items:
@@ -72,7 +74,23 @@ def realizar_pedido(request):
 
 @admin_required
 def reporte_pedidos(request):
+    # Obtenemos el formato de la URL (?formato=excel o ?formato=pdf)
+    formato = request.GET.get('formato')
     pedidos = Pedido.objects.all().order_by('-fechaPedido')
+
+    # El módulo de alto nivel (la vista) depende de la abstracción (ReportGenerator)
+    # y no de las implementaciones concretas.
+    generador = None
+    if formato == 'excel':
+        generador = ReporteExcelGenerator() # Seleccionamos la implementación concreta
+    elif formato == 'pdf':
+        generador = ReportePDFGenerator() # Seleccionamos la otra implementación
+
+    # Si se eligió un generador, lo usamos para devolver el archivo
+    if generador:
+        return generador.generate(pedidos)
+
+    # Si no se especifica un formato, renderizamos la plantilla HTML
     return render(request, 'pedidos/reporte_pedidos.html', {'pedidos': pedidos})
 
 
@@ -83,26 +101,3 @@ def cambiar_estado_pedido(request, pedido_id, nuevo_estado):
     pedido.save()
     messages.success(request, f"El estado del pedido #{pedido.id} ha sido actualizado a '{nuevo_estado}'.")
     return redirect('reporte_pedidos')
-
-
-@admin_required
-def exportar_pedidos_csv(request):
-    response = HttpResponse(content_type=_("text/csv"))
-    response[_("Content-Disposition")] = 'attachment; filename="reporte_pedidos.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow([_("ID Pedido"), _("Cliente"), _("Email Cliente"), _("Fecha"), _("Total"), _("Estado"), _("Dirección")])
-
-    pedidos = Pedido.objects.all().order_by('-fechaPedido')
-    for pedido in pedidos:
-        writer.writerow([
-            pedido.id,
-            pedido.cliente.user.username,
-            pedido.cliente.user.email,
-            pedido.fechaPedido,
-            pedido.totalPedido,
-            pedido.estado,
-            pedido.direccionPedido
-        ])
-
-    return response
