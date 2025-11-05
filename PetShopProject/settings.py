@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "insecure-default-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "3.80.86.151", "paw-whiskers-287581128797.us-central1.run.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "3.90.216.122", "paw-whiskers-287581128797.us-central1.run.app"]
 
 
 
