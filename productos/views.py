@@ -7,11 +7,11 @@ from .forms import ProductoForm
 import pandas as pd
 from django.core.paginator import Paginator
 
-# 🔓 Vista para todos (clientes y admin)
+# Vista para todos (clientes y admin)
 def listar_productos(request):
     productos = Producto.objects.filter(activo=True).order_by("id")
 
-    # 🔍 Filtros
+    # Filtros
     query = request.GET.get(_("q"))  # nombre
     categoria = request.GET.get(_("categoria"))
     precio_min = request.GET.get(_("precio_min"))
@@ -49,7 +49,7 @@ def detalle_producto(request, producto_id):
     return render(request, "productos/detalle_producto.html", {"producto": producto})
 
 
-# 🔒 Solo staff puede subir Excel
+# Solo staff puede subir Excel
 def agregar_productos_excel(request):
     if not request.user.is_staff:
         messages.error(request, _("No tienes permisos para subir productos."))
@@ -82,12 +82,12 @@ def agregar_productos_excel(request):
     return render(request, "productos/subir_productos.html")
 
 
-# ✅ Decorador para solo superusuarios
+# Decorador para solo superusuarios
 def admin_required(view_func):
     return user_passes_test(lambda u: u.is_superuser)(view_func)
 
 
-# 🔑 Vistas de administración (usan el MISMO template con condicionales)
+# Vistas de administración (usan el mismo template con condicionales)
 @admin_required
 def crear_producto(request):
     if request.method == _("POST"):
