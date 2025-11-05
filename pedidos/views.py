@@ -101,3 +101,4 @@ def cambiar_estado_pedido(request, pedido_id, nuevo_estado):
     pedido.save()
     messages.success(request, f"El estado del pedido #{pedido.id} ha sido actualizado a '{nuevo_estado}'.")
     return redirect('reporte_pedidos')
+
