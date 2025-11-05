@@ -5,7 +5,6 @@ from productos.models import Producto
 class Carrito(models.Model):
     cliente = models.ForeignKey(CuentaCliente, on_delete=models.CASCADE)
     productos = models.ManyToManyField(Producto, through="CarritoItem")
-    totalCarrito = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return f"Carrito de {self.cliente.user.username}"
