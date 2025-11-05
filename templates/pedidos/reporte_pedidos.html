@@ -9,8 +9,15 @@
             <h2 class="section-title">{% trans "Reporte de Pedidos" %}</h2>
         </div>
         <div class="col-md-6 text-end">
-            <a href="{% url 'exportar_pedidos_csv' %}" class="btn btn-success"> 
-                <i class="bi bi-file-earmark-spreadsheet"></i>{% trans "Exportar a CSV" %}</a>
+            <!-- Botones de exportación con inversión de dependencias -->
+            <div class="btn-group" role="group">
+                <a href="{% url 'exportar_pedidos_csv' %}" class="btn btn-success"> 
+                    <i class="bi bi-file-earmark-spreadsheet"></i> {% trans "Exportar a CSV" %}
+                </a>
+                <a href="{% url 'exportar_pedidos_pdf' %}" class="btn btn-danger"> 
+                    <i class="bi bi-file-earmark-pdf"></i> {% trans "Exportar a PDF" %}
+                </a>
+            </div>
         </div>
     </div>
 

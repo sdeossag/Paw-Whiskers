@@ -5,8 +5,9 @@ from django.contrib import messages
 from .models import Pedido
 from clientes.models import CuentaCliente, RegistroActividad
 from carrito.models import Carrito
-import csv
-from django.http import HttpResponse
+
+# Importar las clases de inversión de dependencias
+from .exporters import ReporteService, CSVExporter, PDFExporter
 
 
 # Decorador para vistas de administrador
@@ -85,24 +86,38 @@ def cambiar_estado_pedido(request, pedido_id, nuevo_estado):
     return redirect('reporte_pedidos')
 
 
+# ============================================================
+# VISTAS CON INVERSIÓN DE DEPENDENCIAS
+# ============================================================
+
 @admin_required
 def exportar_pedidos_csv(request):
-    response = HttpResponse(content_type=_("text/csv"))
-    response[_("Content-Disposition")] = 'attachment; filename="reporte_pedidos.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow([_("ID Pedido"), _("Cliente"), _("Email Cliente"), _("Fecha"), _("Total"), _("Estado"), _("Dirección")])
-
+    """
+    Exporta pedidos a CSV utilizando inversión de dependencias.
+    El módulo de alto nivel (esta vista) depende de la abstracción (ReporteExporter),
+    no de la implementación concreta (CSVExporter).
+    """
     pedidos = Pedido.objects.all().order_by('-fechaPedido')
-    for pedido in pedidos:
-        writer.writerow([
-            pedido.id,
-            pedido.cliente.user.username,
-            pedido.cliente.user.email,
-            pedido.fechaPedido,
-            pedido.totalPedido,
-            pedido.estado,
-            pedido.direccionPedido
-        ])
+    
+    # Inyectar la dependencia concreta (CSVExporter)
+    csv_exporter = CSVExporter()
+    servicio = ReporteService(csv_exporter)
+    
+    # Generar el reporte
+    return servicio.generar_reporte(pedidos)
 
-    return response
+
+@admin_required
+def exportar_pedidos_pdf(request):
+    """
+    Exporta pedidos a PDF utilizando inversión de dependencias.
+    Podemos intercambiar fácilmente entre CSV y PDF sin modificar la lógica.
+    """
+    pedidos = Pedido.objects.all().order_by('-fechaPedido')
+    
+    # Inyectar la dependencia concreta (PDFExporter)
+    pdf_exporter = PDFExporter()
+    servicio = ReporteService(pdf_exporter)
+    
+    # Generar el reporte
+    return servicio.generar_reporte(pedidos)
