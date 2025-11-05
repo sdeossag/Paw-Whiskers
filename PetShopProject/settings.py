@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "insecure-default-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "54.221.172.76"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "3.80.86.151", "paw-whiskers-287581128797.us-central1.run.app"]
 
 
 
@@ -142,6 +142,8 @@ TIME_ZONE = 'UTC'
 # Archivos estáticos
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 # Archivos subidos por usuarios (media)
 MEDIA_URL = '/media/'
