@@ -9,7 +9,7 @@ colorama==0.4.6
 contourpy
 cycler==0.12.1
 distro==1.9.0
-Django==5.2.4
+Django
 django-modeltranslation==0.19.17
 Flask==3.1.2
 fonttools==4.59.1
