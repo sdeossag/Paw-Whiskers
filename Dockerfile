@@ -19,14 +19,14 @@ COPY . /app/
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
+# Run migrations
+RUN python manage.py migrate
+
 # Expose the port the app runs on
 EXPOSE 8000
 
 # Run the application with gunicorn
 # CMD ["gunicorn", "PetShopProject.wsgi:application", "--bind", "0.0.0.0:8000"]
-
-# Collect static files
-RUN python manage.py collectstatic --noinput
 
 CMD exec gunicorn PetShopProject.wsgi:application \
     --bind :$PORT \
