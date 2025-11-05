@@ -8,10 +8,10 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class CarritoCalculosTest(TestCase):
-    """Prueba unitaria para verificar los cálculos del carrito"""
+    """Prueba unitaria para verificar los cálculos del carrito con productos reales"""
     
     def setUp(self):
-        """Configuración inicial: crear usuario, cliente, productos y carrito"""
+        """Configuración inicial: crear usuario, cliente y productos"""
         # Crear usuario
         self.user = User.objects.create_user(
             username='testuser',
@@ -19,75 +19,103 @@ class CarritoCalculosTest(TestCase):
             password='testpass123'
         )
         
-        # Crear cuenta de cliente con los campos correctos
+        # Crear cuenta de cliente
         self.cliente = CuentaCliente.objects.create(
             user=self.user,
             direccionPedido='Calle 123 #45-67',
             metodoPago='Tarjeta de Crédito'
         )
         
-        # Crear imagen dummy para los productos
+        # Crear imagen dummy
         imagen_dummy = SimpleUploadedFile(
             name='test_image.jpg',
             content=b'',
             content_type='image/jpeg'
         )
         
-        # Crear productos con los campos correctos
+        # Crear productos de prueba que simulan productos reales
         self.producto1 = Producto.objects.create(
-            nombre='Laptop',
-            descripcion='Laptop de alta gama',
-            clasificacion='Electrónica',
-            precio=Decimal('1000.00'),
+            nombre='Collar para Perro Premium',
+            descripcion='Collar ajustable de cuero genuino',
+            clasificacion='Accesorios',
+            precio=Decimal('45.99'),
             imagen=imagen_dummy,
-            cantidadDisp=10,
+            cantidadDisp=25,
             activo=True
         )
         
         self.producto2 = Producto.objects.create(
-            nombre='Mouse',
-            descripcion='Mouse inalámbrico',
-            clasificacion='Accesorios',
-            precio=Decimal('50.00'),
+            nombre='Juguete Interactivo para Gato',
+            descripcion='Ratón con sonido y movimiento',
+            clasificacion='Juguetes',
+            precio=Decimal('18.50'),
             imagen=imagen_dummy,
-            cantidadDisp=20,
+            cantidadDisp=50,
             activo=True
         )
-        
-        # Crear carrito y agregar items
-        self.carrito = Carrito.objects.create(cliente=self.cliente)
-        
-        CarritoItem.objects.create(
-            carrito=self.carrito,
-            producto=self.producto1,
-            cantidad=2
-        )
-        
-        CarritoItem.objects.create(
-            carrito=self.carrito,
-            producto=self.producto2,
-            cantidad=3
-        )
     
-    def test_calculo_total_carrito(self):
+    def test_calculo_total_carrito_con_productos_reales(self):
         """
         Prueba que el cálculo del total del carrito sea correcto
-        Total = (1000 * 2) + (50 * 3) = 2150
-        Impuestos = 2150 * 0.19 = 408.50
-        Total con impuestos = 2150 + 408.50 = 2558.50
+        usando productos que simulan el inventario real de la tienda
         """
+        print("\n" + "="*60)
+        print("PRUEBA: CÁLCULO DEL CARRITO DE COMPRAS")
+        print("="*60)
+        
+        # Crear carrito
+        carrito = Carrito.objects.create(cliente=self.cliente)
+        print(f"\n✓ Carrito creado para: {self.cliente.user.username}")
+        
+        # Agregar items al carrito con cantidades específicas
+        cantidad1 = 2
+        cantidad2 = 3
+        
+        item1 = CarritoItem.objects.create(
+            carrito=carrito,
+            producto=self.producto1,
+            cantidad=cantidad1
+        )
+        
+        item2 = CarritoItem.objects.create(
+            carrito=carrito,
+            producto=self.producto2,
+            cantidad=cantidad2
+        )
+        
+        print(f"\n📦 PRODUCTOS AGREGADOS AL CARRITO:")
+        print(f"  1. {self.producto1.nombre}")
+        print(f"     Precio unitario: ${self.producto1.precio}")
+        print(f"     Cantidad: {cantidad1}")
+        print(f"     Subtotal: ${item1.subtotal}")
+        
+        print(f"\n  2. {self.producto2.nombre}")
+        print(f"     Precio unitario: ${self.producto2.precio}")
+        print(f"     Cantidad: {cantidad2}")
+        print(f"     Subtotal: ${item2.subtotal}")
+        
+        # Calcular valores esperados manualmente
+        subtotal_esperado = (self.producto1.precio * cantidad1) + (self.producto2.precio * cantidad2)
+        impuestos_esperados = subtotal_esperado * Decimal('0.19')
+        total_esperado = subtotal_esperado + impuestos_esperados
+        
+        print(f"\n💰 RESUMEN FINANCIERO:")
+        print(f"  Subtotal:           ${subtotal_esperado}")
+        print(f"  Impuestos (19%):    ${impuestos_esperados}")
+        print(f"  TOTAL A PAGAR:      ${total_esperado}")
+        
         # Verificar subtotal
-        subtotal_esperado = Decimal('2150.00')
-        self.assertEqual(self.carrito.subtotal_carrito, subtotal_esperado)
+        self.assertEqual(carrito.subtotal_carrito, subtotal_esperado)
+        print(f"\n✓ Subtotal verificado correctamente")
         
         # Verificar impuestos (19%)
-        impuestos_esperados = Decimal('408.50')
-        self.assertEqual(self.carrito.impuestos, impuestos_esperados)
+        self.assertEqual(carrito.impuestos, impuestos_esperados)
+        print(f"✓ Impuestos calculados correctamente")
         
         # Verificar total
-        total_esperado = Decimal('2558.50')
-        self.assertEqual(self.carrito.total_carrito, total_esperado)
+        self.assertEqual(carrito.total_carrito, total_esperado)
+        print(f"✓ Total del carrito correcto")
         
-        print(f"✓ Subtotal: ${self.carrito.subtotal_carrito}")
-        print(f"✓ Impuestos: ${self.carrito.impuestos}")
-        print(f"✓ Total: ${self.carrito.total_carrito}")
+        print("\n" + "="*60)
+        print("✅ PRUEBA EXITOSA: Todos los cálculos son correctos")
+        print("="*60 + "\n")
